@@ -18,23 +18,23 @@
   if (self = [super initWithSize:size]) {
     /* Setup your scene here */
     
-    // Add background.
+    // Add background
     SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"Starfield"];
     background.position = CGPointZero;
     background.anchorPoint = CGPointZero;
     background.blendMode = SKBlendModeReplace;
     [self addChild:background];
     
-    // Add main layer.
+    // Add main layer
     _mainLayer = [[SKNode alloc] init];
     [self addChild:_mainLayer];
     
-    // Add cannon.
+    // Add cannon
     _cannon = [SKSpriteNode spriteNodeWithImageNamed:@"Cannon"];
     _cannon.position = CGPointMake(self.size.width * 0.5, 0.0);
     [_mainLayer addChild:_cannon];
     
-    // Create cannon rotation actions.
+    // Create cannon rotation actions
     SKAction *rotateCannon = [SKAction sequence:@[[SKAction rotateByAngle:M_PI duration:2],
                                                   [SKAction rotateByAngle:-M_PI duration:2]]];
     [_cannon runAction:[SKAction repeatActionForever:rotateCannon]];
