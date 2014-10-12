@@ -35,6 +35,7 @@
 		BE410C6619EB33DC00F5E207 /* Cannon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BE410C5A19EB33DC00F5E207 /* Cannon@2x.png */; };
 		BE410C6719EB33DC00F5E207 /* Halo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BE410C5B19EB33DC00F5E207 /* Halo@2x.png */; };
 		BE410C6819EB33DC00F5E207 /* Starfield@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BE410C5C19EB33DC00F5E207 /* Starfield@2x.png */; };
+		BE410C6A19EB36FF00F5E207 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = BE410C6919EB36FF00F5E207 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +83,7 @@
 		BE410C5A19EB33DC00F5E207 /* Cannon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cannon@2x.png"; sourceTree = "<group>"; };
 		BE410C5B19EB33DC00F5E207 /* Halo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Halo@2x.png"; sourceTree = "<group>"; };
 		BE410C5C19EB33DC00F5E207 /* Starfield@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Starfield@2x.png"; sourceTree = "<group>"; };
+		BE410C6919EB36FF00F5E207 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 		BE410C0819EB32B800F5E207 = {
 			isa = PBXGroup;
 			children = (
+				BE410C6919EB36FF00F5E207 /* README.md */,
 				BE410C1C19EB32B800F5E207 /* Space Cannon */,
 				BE410C4019EB32B800F5E207 /* Space CannonTests */,
 				BE410C1319EB32B800F5E207 /* Frameworks */,
@@ -288,6 +291,7 @@
 				BE410C6219EB33DC00F5E207 /* Ammo5@2x.png in Resources */,
 				BE410C5E19EB33DC00F5E207 /* Ammo1@2x.png in Resources */,
 				BE410C6319EB33DC00F5E207 /* Ball@2x.png in Resources */,
+				BE410C6A19EB36FF00F5E207 /* README.md in Resources */,
 				BE410C3419EB32B800F5E207 /* Images.xcassets in Resources */,
 				BE410C6019EB33DC00F5E207 /* Ammo3@2x.png in Resources */,
 				BE410C2A19EB32B800F5E207 /* Main.storyboard in Resources */,
