@@ -33,7 +33,11 @@
     _cannon = [SKSpriteNode spriteNodeWithImageNamed:@"Cannon"];
     _cannon.position = CGPointMake(self.size.width * 0.5, 0.0);
     [_mainLayer addChild:_cannon];
-
+    
+    // Create cannon rotation actions.
+    SKAction *rotateCannon = [SKAction sequence:@[[SKAction rotateByAngle:M_PI duration:2],
+                                                  [SKAction rotateByAngle:-M_PI duration:2]]];
+    [_cannon runAction:[SKAction repeatActionForever:rotateCannon]];
     
   }
   return self;
