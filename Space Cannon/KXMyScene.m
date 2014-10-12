@@ -14,6 +14,9 @@
   SKSpriteNode *_cannon;
 }
 
+// radians = degrees * (π / 180)
+// degrees = radians * (180 / π)
+
 static inline CGVector radiansToVector(CGFloat radians)
 {
   CGVector vector;
@@ -59,6 +62,8 @@ static inline CGVector radiansToVector(CGFloat radians)
   ball.position = CGPointMake(_cannon.position.x + (_cannon.size.width * 0.5 * rotationVector.dx),
                               _cannon.position.y + (_cannon.size.width * 0.5 * rotationVector.dy));
   [_mainLayer addChild:ball];
+  
+  ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:6.0];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
