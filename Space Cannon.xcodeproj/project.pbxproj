@@ -1,0 +1,488 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BE410C1519EB32B800F5E207 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE410C1419EB32B800F5E207 /* Foundation.framework */; };
+		BE410C1719EB32B800F5E207 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE410C1619EB32B800F5E207 /* CoreGraphics.framework */; };
+		BE410C1919EB32B800F5E207 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE410C1819EB32B800F5E207 /* UIKit.framework */; };
+		BE410C1B19EB32B800F5E207 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE410C1A19EB32B800F5E207 /* SpriteKit.framework */; };
+		BE410C2119EB32B800F5E207 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE410C1F19EB32B800F5E207 /* InfoPlist.strings */; };
+		BE410C2319EB32B800F5E207 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE410C2219EB32B800F5E207 /* main.m */; };
+		BE410C2719EB32B800F5E207 /* KXAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BE410C2619EB32B800F5E207 /* KXAppDelegate.m */; };
+		BE410C2A19EB32B800F5E207 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE410C2819EB32B800F5E207 /* Main.storyboard */; };
+		BE410C2D19EB32B800F5E207 /* KXViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE410C2C19EB32B800F5E207 /* KXViewController.m */; };
+		BE410C3019EB32B800F5E207 /* KXMyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = BE410C2F19EB32B800F5E207 /* KXMyScene.m */; };
+		BE410C3219EB32B800F5E207 /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = BE410C3119EB32B800F5E207 /* Spaceship.png */; };
+		BE410C3419EB32B800F5E207 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE410C3319EB32B800F5E207 /* Images.xcassets */; };
+		BE410C3B19EB32B800F5E207 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE410C3A19EB32B800F5E207 /* XCTest.framework */; };
+		BE410C3C19EB32B800F5E207 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE410C1419EB32B800F5E207 /* Foundation.framework */; };
+		BE410C3D19EB32B800F5E207 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE410C1819EB32B800F5E207 /* UIKit.framework */; };
+		BE410C4519EB32B800F5E207 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE410C4319EB32B800F5E207 /* InfoPlist.strings */; };
+		BE410C4719EB32B800F5E207 /* Space_CannonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BE410C4619EB32B800F5E207 /* Space_CannonTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BE410C3E19EB32B800F5E207 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BE410C0919EB32B800F5E207 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BE410C1019EB32B800F5E207;
+			remoteInfo = "Space Cannon";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		BE410C1119EB32B800F5E207 /* Space Cannon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Space Cannon.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE410C1419EB32B800F5E207 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		BE410C1619EB32B800F5E207 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		BE410C1819EB32B800F5E207 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		BE410C1A19EB32B800F5E207 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
+		BE410C1E19EB32B800F5E207 /* Space Cannon-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Space Cannon-Info.plist"; sourceTree = "<group>"; };
+		BE410C2019EB32B800F5E207 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		BE410C2219EB32B800F5E207 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		BE410C2419EB32B800F5E207 /* Space Cannon-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Space Cannon-Prefix.pch"; sourceTree = "<group>"; };
+		BE410C2519EB32B800F5E207 /* KXAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KXAppDelegate.h; sourceTree = "<group>"; };
+		BE410C2619EB32B800F5E207 /* KXAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KXAppDelegate.m; sourceTree = "<group>"; };
+		BE410C2919EB32B800F5E207 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BE410C2B19EB32B800F5E207 /* KXViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KXViewController.h; sourceTree = "<group>"; };
+		BE410C2C19EB32B800F5E207 /* KXViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KXViewController.m; sourceTree = "<group>"; };
+		BE410C2E19EB32B800F5E207 /* KXMyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KXMyScene.h; sourceTree = "<group>"; };
+		BE410C2F19EB32B800F5E207 /* KXMyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KXMyScene.m; sourceTree = "<group>"; };
+		BE410C3119EB32B800F5E207 /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
+		BE410C3319EB32B800F5E207 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		BE410C3919EB32B800F5E207 /* Space CannonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Space CannonTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE410C3A19EB32B800F5E207 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		BE410C4219EB32B800F5E207 /* Space CannonTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Space CannonTests-Info.plist"; sourceTree = "<group>"; };
+		BE410C4419EB32B800F5E207 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		BE410C4619EB32B800F5E207 /* Space_CannonTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Space_CannonTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BE410C0E19EB32B800F5E207 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE410C1719EB32B800F5E207 /* CoreGraphics.framework in Frameworks */,
+				BE410C1919EB32B800F5E207 /* UIKit.framework in Frameworks */,
+				BE410C1B19EB32B800F5E207 /* SpriteKit.framework in Frameworks */,
+				BE410C1519EB32B800F5E207 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE410C3619EB32B800F5E207 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE410C3B19EB32B800F5E207 /* XCTest.framework in Frameworks */,
+				BE410C3D19EB32B800F5E207 /* UIKit.framework in Frameworks */,
+				BE410C3C19EB32B800F5E207 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BE410C0819EB32B800F5E207 = {
+			isa = PBXGroup;
+			children = (
+				BE410C1C19EB32B800F5E207 /* Space Cannon */,
+				BE410C4019EB32B800F5E207 /* Space CannonTests */,
+				BE410C1319EB32B800F5E207 /* Frameworks */,
+				BE410C1219EB32B800F5E207 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BE410C1219EB32B800F5E207 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BE410C1119EB32B800F5E207 /* Space Cannon.app */,
+				BE410C3919EB32B800F5E207 /* Space CannonTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BE410C1319EB32B800F5E207 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BE410C1419EB32B800F5E207 /* Foundation.framework */,
+				BE410C1619EB32B800F5E207 /* CoreGraphics.framework */,
+				BE410C1819EB32B800F5E207 /* UIKit.framework */,
+				BE410C1A19EB32B800F5E207 /* SpriteKit.framework */,
+				BE410C3A19EB32B800F5E207 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BE410C1C19EB32B800F5E207 /* Space Cannon */ = {
+			isa = PBXGroup;
+			children = (
+				BE410C2519EB32B800F5E207 /* KXAppDelegate.h */,
+				BE410C2619EB32B800F5E207 /* KXAppDelegate.m */,
+				BE410C2819EB32B800F5E207 /* Main.storyboard */,
+				BE410C2B19EB32B800F5E207 /* KXViewController.h */,
+				BE410C2C19EB32B800F5E207 /* KXViewController.m */,
+				BE410C2E19EB32B800F5E207 /* KXMyScene.h */,
+				BE410C2F19EB32B800F5E207 /* KXMyScene.m */,
+				BE410C3119EB32B800F5E207 /* Spaceship.png */,
+				BE410C3319EB32B800F5E207 /* Images.xcassets */,
+				BE410C1D19EB32B800F5E207 /* Supporting Files */,
+			);
+			path = "Space Cannon";
+			sourceTree = "<group>";
+		};
+		BE410C1D19EB32B800F5E207 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BE410C1E19EB32B800F5E207 /* Space Cannon-Info.plist */,
+				BE410C1F19EB32B800F5E207 /* InfoPlist.strings */,
+				BE410C2219EB32B800F5E207 /* main.m */,
+				BE410C2419EB32B800F5E207 /* Space Cannon-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BE410C4019EB32B800F5E207 /* Space CannonTests */ = {
+			isa = PBXGroup;
+			children = (
+				BE410C4619EB32B800F5E207 /* Space_CannonTests.m */,
+				BE410C4119EB32B800F5E207 /* Supporting Files */,
+			);
+			path = "Space CannonTests";
+			sourceTree = "<group>";
+		};
+		BE410C4119EB32B800F5E207 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BE410C4219EB32B800F5E207 /* Space CannonTests-Info.plist */,
+				BE410C4319EB32B800F5E207 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BE410C1019EB32B800F5E207 /* Space Cannon */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BE410C4A19EB32B800F5E207 /* Build configuration list for PBXNativeTarget "Space Cannon" */;
+			buildPhases = (
+				BE410C0D19EB32B800F5E207 /* Sources */,
+				BE410C0E19EB32B800F5E207 /* Frameworks */,
+				BE410C0F19EB32B800F5E207 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Space Cannon";
+			productName = "Space Cannon";
+			productReference = BE410C1119EB32B800F5E207 /* Space Cannon.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BE410C3819EB32B800F5E207 /* Space CannonTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BE410C4D19EB32B800F5E207 /* Build configuration list for PBXNativeTarget "Space CannonTests" */;
+			buildPhases = (
+				BE410C3519EB32B800F5E207 /* Sources */,
+				BE410C3619EB32B800F5E207 /* Frameworks */,
+				BE410C3719EB32B800F5E207 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BE410C3F19EB32B800F5E207 /* PBXTargetDependency */,
+			);
+			name = "Space CannonTests";
+			productName = "Space CannonTests";
+			productReference = BE410C3919EB32B800F5E207 /* Space CannonTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BE410C0919EB32B800F5E207 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = KX;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Kenneth Wilcox";
+				TargetAttributes = {
+					BE410C3819EB32B800F5E207 = {
+						TestTargetID = BE410C1019EB32B800F5E207;
+					};
+				};
+			};
+			buildConfigurationList = BE410C0C19EB32B800F5E207 /* Build configuration list for PBXProject "Space Cannon" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BE410C0819EB32B800F5E207;
+			productRefGroup = BE410C1219EB32B800F5E207 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BE410C1019EB32B800F5E207 /* Space Cannon */,
+				BE410C3819EB32B800F5E207 /* Space CannonTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BE410C0F19EB32B800F5E207 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE410C2119EB32B800F5E207 /* InfoPlist.strings in Resources */,
+				BE410C3419EB32B800F5E207 /* Images.xcassets in Resources */,
+				BE410C3219EB32B800F5E207 /* Spaceship.png in Resources */,
+				BE410C2A19EB32B800F5E207 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE410C3719EB32B800F5E207 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE410C4519EB32B800F5E207 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BE410C0D19EB32B800F5E207 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE410C2D19EB32B800F5E207 /* KXViewController.m in Sources */,
+				BE410C3019EB32B800F5E207 /* KXMyScene.m in Sources */,
+				BE410C2319EB32B800F5E207 /* main.m in Sources */,
+				BE410C2719EB32B800F5E207 /* KXAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE410C3519EB32B800F5E207 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE410C4719EB32B800F5E207 /* Space_CannonTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BE410C3F19EB32B800F5E207 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BE410C1019EB32B800F5E207 /* Space Cannon */;
+			targetProxy = BE410C3E19EB32B800F5E207 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		BE410C1F19EB32B800F5E207 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BE410C2019EB32B800F5E207 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		BE410C2819EB32B800F5E207 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BE410C2919EB32B800F5E207 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		BE410C4319EB32B800F5E207 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BE410C4419EB32B800F5E207 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BE410C4819EB32B800F5E207 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		BE410C4919EB32B800F5E207 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BE410C4B19EB32B800F5E207 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Space Cannon/Space Cannon-Prefix.pch";
+				INFOPLIST_FILE = "Space Cannon/Space Cannon-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		BE410C4C19EB32B800F5E207 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Space Cannon/Space Cannon-Prefix.pch";
+				INFOPLIST_FILE = "Space Cannon/Space Cannon-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		BE410C4E19EB32B800F5E207 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Space Cannon.app/Space Cannon";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Space Cannon/Space Cannon-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Space CannonTests/Space CannonTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		BE410C4F19EB32B800F5E207 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Space Cannon.app/Space Cannon";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Space Cannon/Space Cannon-Prefix.pch";
+				INFOPLIST_FILE = "Space CannonTests/Space CannonTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BE410C0C19EB32B800F5E207 /* Build configuration list for PBXProject "Space Cannon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE410C4819EB32B800F5E207 /* Debug */,
+				BE410C4919EB32B800F5E207 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BE410C4A19EB32B800F5E207 /* Build configuration list for PBXNativeTarget "Space Cannon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE410C4B19EB32B800F5E207 /* Debug */,
+				BE410C4C19EB32B800F5E207 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		BE410C4D19EB32B800F5E207 /* Build configuration list for PBXNativeTarget "Space CannonTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE410C4E19EB32B800F5E207 /* Debug */,
+				BE410C4F19EB32B800F5E207 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BE410C0919EB32B800F5E207 /* Project object */;
+}
