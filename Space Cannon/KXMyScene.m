@@ -14,7 +14,15 @@
   SKSpriteNode *_cannon;
 }
 
--(id)initWithSize:(CGSize)size {
+static inline CGVector radiansToVector(CGFloat radians)
+{
+  CGVector vector;
+  vector.dx = cosf(radians);
+  vector.dy = sinf(radians);
+  return vector;
+}
+
+- (id)initWithSize:(CGSize)size {
   if (self = [super initWithSize:size]) {
     /* Setup your scene here */
     
@@ -43,15 +51,25 @@
   return self;
 }
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)shoot
+{
+  // Create ball node.
+  SKSpriteNode *ball = [SKSpriteNode spriteNodeWithImageNamed:@"Ball"];
+  CGVector rotationVector = radiansToVector(_cannon.zRotation);
+  ball.position = CGPointMake(_cannon.position.x + (_cannon.size.width * 0.5 * rotationVector.dx),
+                              _cannon.position.y + (_cannon.size.width * 0.5 * rotationVector.dy));
+  [_mainLayer addChild:ball];
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
   /* Called when a touch begins */
   
   for (UITouch *touch in touches) {
-
+    [self shoot];
   }
 }
 
--(void)update:(CFTimeInterval)currentTime {
+- (void)update:(CFTimeInterval)currentTime {
   /* Called before each frame is rendered */
 }
 
