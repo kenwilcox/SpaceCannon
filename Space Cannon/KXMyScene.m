@@ -17,6 +17,8 @@
 // radians = degrees * (π / 180)
 // degrees = radians * (180 / π)
 
+static const CGFloat SHOOT_SPEED = 1000.0f;
+
 static inline CGVector radiansToVector(CGFloat radians)
 {
   CGVector vector;
@@ -28,6 +30,9 @@ static inline CGVector radiansToVector(CGFloat radians)
 - (id)initWithSize:(CGSize)size {
   if (self = [super initWithSize:size]) {
     /* Setup your scene here */
+    
+    // Turn off gravity.
+    self.physicsWorld.gravity = CGVectorMake(0.0f, 0.0f);
     
     // Add background
     SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"Starfield"];
@@ -64,6 +69,7 @@ static inline CGVector radiansToVector(CGFloat radians)
   [_mainLayer addChild:ball];
   
   ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:6.0];
+  ball.physicsBody.velocity = CGVectorMake(rotationVector.dx * SHOOT_SPEED, rotationVector.dy * SHOOT_SPEED);
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
