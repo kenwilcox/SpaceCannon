@@ -83,6 +83,17 @@ static inline CGVector radiansToVector(CGFloat radians)
   //}
 }
 
+/* SpriteKit Event loop: update, didEvaluateActions, didSimulatePhysics */
+
+- (void)update:(CFTimeInterval)currentTime {
+  /* Called before each frame is rendered */
+}
+
+- (void)didEvaluateActions
+{
+  
+}
+
 - (void)didSimulatePhysics
 {
   if (_didShoot) {
@@ -96,10 +107,6 @@ static inline CGVector radiansToVector(CGFloat radians)
       [node removeFromParent];
     }
   }];
-}
-
-- (void)update:(CFTimeInterval)currentTime {
-  /* Called before each frame is rendered */
 }
 
 @end
