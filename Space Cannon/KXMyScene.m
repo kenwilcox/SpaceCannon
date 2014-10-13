@@ -84,6 +84,13 @@ static inline CGVector radiansToVector(CGFloat radians)
   
   ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:6.0];
   ball.physicsBody.velocity = CGVectorMake(rotationVector.dx * SHOOT_SPEED, rotationVector.dy * SHOOT_SPEED);
+  
+  // Bounciness
+  ball.physicsBody.restitution = 1.0;
+  // linear velocity - 0 is off
+  ball.physicsBody.linearDamping = 0.0;
+  // Turn off friction
+  ball.physicsBody.friction = 0.0;
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
