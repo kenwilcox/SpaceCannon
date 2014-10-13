@@ -42,6 +42,17 @@ static inline CGVector radiansToVector(CGFloat radians)
     background.blendMode = SKBlendModeReplace;
     [self addChild:background];
     
+    // Add edges
+    SKNode *leftEdge = [[SKNode alloc] init];
+    leftEdge.physicsBody = [SKPhysicsBody bodyWithEdgeFromPoint:CGPointZero toPoint:CGPointMake(0.0, self.size.height)];
+    leftEdge.position = CGPointZero;
+    [self addChild:leftEdge];
+
+    SKNode *rightEdge = [[SKNode alloc] init];
+    rightEdge.physicsBody = [SKPhysicsBody bodyWithEdgeFromPoint:CGPointZero toPoint:CGPointMake(0.0, self.size.height)];
+    rightEdge.position = CGPointMake(self.size.width, 0.0);
+    [self addChild:rightEdge];
+    
     // Add main layer
     _mainLayer = [[SKNode alloc] init];
     [self addChild:_mainLayer];
