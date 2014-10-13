@@ -12,6 +12,7 @@
 {
   SKNode *_mainLayer;
   SKSpriteNode *_cannon;
+  BOOL _didShoot;
 }
 
 // radians = degrees * (π / 180)
@@ -31,7 +32,7 @@ static inline CGVector radiansToVector(CGFloat radians)
   if (self = [super initWithSize:size]) {
     /* Setup your scene here */
     
-    // Turn off gravity.
+    // Turn off gravity
     self.physicsWorld.gravity = CGVectorMake(0.0f, 0.0f);
     
     // Add background
@@ -78,12 +79,17 @@ static inline CGVector radiansToVector(CGFloat radians)
   /* Called when a touch begins */
   
   //for (UITouch *touch in touches) {
-    [self shoot];
+  _didShoot = YES;
   //}
 }
 
 - (void)didSimulatePhysics
 {
+  if (_didShoot) {
+    [self shoot];
+    _didShoot = NO;
+  }
+  
   // Remove unused nodes
   [_mainLayer enumerateChildNodesWithName:@"ball" usingBlock:^(SKNode *node, BOOL *stop) {
     if (!CGRectContainsPoint(self.frame, node.position)) {
