@@ -23,6 +23,11 @@ static const CGFloat kKXHaloLowAngle = 200.0 * M_PI / 180.0;
 static const CGFloat kKXHaloHighAngle = 340.0 * M_PI / 180.0;
 static const CGFloat kKXHaloSpeed = 100.0;
 
+// BitMasks
+static const uint32_t kKXHaloCategory = 0x1 << 0;
+static const uint32_t kKXBallCategory = 0x1 << 1;
+static const uint32_t kKXEdgeCategory = 0x1 << 2;
+
 static inline CGVector radiansToVector(CGFloat radians)
 {
   CGVector vector;
@@ -55,11 +60,13 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     SKNode *leftEdge = [[SKNode alloc] init];
     leftEdge.physicsBody = [SKPhysicsBody bodyWithEdgeFromPoint:CGPointZero toPoint:CGPointMake(0.0, self.size.height)];
     leftEdge.position = CGPointZero;
+    leftEdge.physicsBody.categoryBitMask = kKXEdgeCategory;
     [self addChild:leftEdge];
 
     SKNode *rightEdge = [[SKNode alloc] init];
     rightEdge.physicsBody = [SKPhysicsBody bodyWithEdgeFromPoint:CGPointZero toPoint:CGPointMake(0.0, self.size.height)];
     rightEdge.position = CGPointMake(self.size.width, 0.0);
+    rightEdge.physicsBody.categoryBitMask = kKXEdgeCategory;
     [self addChild:rightEdge];
     
     // Add main layer
@@ -99,12 +106,11 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:6.0];
   ball.physicsBody.velocity = CGVectorMake(rotationVector.dx * kKXShootSpeed, rotationVector.dy * kKXShootSpeed);
   
-  // Bounciness
   ball.physicsBody.restitution = 1.0;
-  // linear velocity - 0 is off
   ball.physicsBody.linearDamping = 0.0;
-  // Turn off friction
   ball.physicsBody.friction = 0.0;
+  ball.physicsBody.categoryBitMask = kKXBallCategory;
+  ball.physicsBody.collisionBitMask = kKXEdgeCategory;// | kKXHaloCategory;
 }
 
 -(void)spawnHalo
@@ -122,6 +128,8 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   halo.physicsBody.restitution = 1.0;
   halo.physicsBody.linearDamping = 0.0;
   halo.physicsBody.friction = 0.0;
+  halo.physicsBody.categoryBitMask = kKXHaloCategory;
+  halo.physicsBody.collisionBitMask = kKXEdgeCategory;
   
   [_mainLayer addChild:halo];
 }
