@@ -12,6 +12,7 @@
 {
   SKNode *_mainLayer;
   SKSpriteNode *_cannon;
+  SKSpriteNode *_ammoDisplay;
   BOOL _didShoot;
 }
 
@@ -63,7 +64,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     leftEdge.position = CGPointZero;
     leftEdge.physicsBody.categoryBitMask = kKXEdgeCategory;
     [self addChild:leftEdge];
-
+    
     SKNode *rightEdge = [[SKNode alloc] init];
     rightEdge.physicsBody = [SKPhysicsBody bodyWithEdgeFromPoint:CGPointZero toPoint:CGPointMake(0.0, self.size.height)];
     rightEdge.position = CGPointMake(self.size.width, 0.0);
@@ -89,29 +90,55 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
                                                [SKAction performSelector:@selector(spawnHalo) onTarget:self]]];
     [self runAction:[SKAction repeatActionForever:spawnHalo]];
     
+    // Setup Ammo Display
+    _ammoDisplay = [SKSpriteNode spriteNodeWithImageNamed:@"Ammo5"];
+    _ammoDisplay.anchorPoint = CGPointMake(0.5, 0.0);
+    _ammoDisplay.position = _cannon.position;
+    [_mainLayer addChild:_ammoDisplay];
+    
+    self.ammo = 5;
+    
+    SKAction *incrementAmmo = [SKAction sequence:@[[SKAction waitForDuration:1],
+                                                   [SKAction runBlock:^{
+      self.ammo++;
+    }]]];
+    [self runAction:[SKAction repeatActionForever:incrementAmmo]];
+    
   }
   return self;
 }
 
+-(void)setAmmo:(int)ammo
+{
+  if (ammo >= 0 && ammo <= 5) {
+    _ammo = ammo;
+    _ammoDisplay.texture = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"Ammo%d", ammo]];
+  }
+}
+
 - (void)shoot
 {
-  // Create ball node
-  SKSpriteNode *ball = [SKSpriteNode spriteNodeWithImageNamed:@"Ball"];
-  // Give them a name, so we can find them later
-  ball.name = @"ball";
-  CGVector rotationVector = radiansToVector(_cannon.zRotation);
-  ball.position = CGPointMake(_cannon.position.x + (_cannon.size.width * 0.5 * rotationVector.dx),
-                              _cannon.position.y + (_cannon.size.width * 0.5 * rotationVector.dy));
-  [_mainLayer addChild:ball];
-  
-  ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:6.0];
-  ball.physicsBody.velocity = CGVectorMake(rotationVector.dx * kKXShootSpeed, rotationVector.dy * kKXShootSpeed);
-  
-  ball.physicsBody.restitution = 1.0;
-  ball.physicsBody.linearDamping = 0.0;
-  ball.physicsBody.friction = 0.0;
-  ball.physicsBody.categoryBitMask = kKXBallCategory;
-  ball.physicsBody.collisionBitMask = kKXEdgeCategory;// | kKXHaloCategory;
+  if (self.ammo > 0) {
+    self.ammo--;
+    
+    // Create ball node
+    SKSpriteNode *ball = [SKSpriteNode spriteNodeWithImageNamed:@"Ball"];
+    // Give them a name, so we can find them later
+    ball.name = @"ball";
+    CGVector rotationVector = radiansToVector(_cannon.zRotation);
+    ball.position = CGPointMake(_cannon.position.x + (_cannon.size.width * 0.5 * rotationVector.dx),
+                                _cannon.position.y + (_cannon.size.width * 0.5 * rotationVector.dy));
+    [_mainLayer addChild:ball];
+    
+    ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:6.0];
+    ball.physicsBody.velocity = CGVectorMake(rotationVector.dx * kKXShootSpeed, rotationVector.dy * kKXShootSpeed);
+    
+    ball.physicsBody.restitution = 1.0;
+    ball.physicsBody.linearDamping = 0.0;
+    ball.physicsBody.friction = 0.0;
+    ball.physicsBody.categoryBitMask = kKXBallCategory;
+    ball.physicsBody.collisionBitMask = kKXEdgeCategory;// | kKXHaloCategory;
+  }
 }
 
 -(void)spawnHalo
@@ -162,19 +189,19 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 -(void)addExplosion:(CGPoint)position
 {
   // Load the Resource
-//  NSString *explosionPath = [[NSBundle mainBundle] pathForResource:@"HaloExplosion" ofType:@"sks"];
-//  SKEmitterNode *explosion = [NSKeyedUnarchiver unarchiveObjectWithFile:explosionPath];
+  NSString *explosionPath = [[NSBundle mainBundle] pathForResource:@"HaloExplosion" ofType:@"sks"];
+  SKEmitterNode *explosion = [NSKeyedUnarchiver unarchiveObjectWithFile:explosionPath];
   
   // If you want to do it maunally
-  SKEmitterNode *explosion = [SKEmitterNode node];
-  explosion.particleTexture = [SKTexture textureWithImageNamed:@"spark"];
-  explosion.particleLifetime = 1;
-  explosion.particleBirthRate = 2000;
-  explosion.numParticlesToEmit = 100;
-  explosion.emissionAngleRange = 360;
-  explosion.particleScale = 0.2;
-  explosion.particleScaleSpeed = - 0.2;
-  explosion.particleSpeed = 200;
+  //  SKEmitterNode *explosion = [SKEmitterNode node];
+  //  explosion.particleTexture = [SKTexture textureWithImageNamed:@"spark"];
+  //  explosion.particleLifetime = 1;
+  //  explosion.particleBirthRate = 2000;
+  //  explosion.numParticlesToEmit = 100;
+  //  explosion.emissionAngleRange = 360;
+  //  explosion.particleScale = 0.2;
+  //  explosion.particleScaleSpeed = - 0.2;
+  //  explosion.particleSpeed = 200;
   
   explosion.position = position;
   [_mainLayer addChild:explosion];
@@ -216,13 +243,13 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
       [node removeFromParent];
     }
   }];
-
+  
   // Can't clean up this way - they are created off screen and cleaned up - dooh
-//  [_mainLayer enumerateChildNodesWithName:@"halo" usingBlock:^(SKNode *node, BOOL *stop) {
-//    if (!CGRectContainsPoint(self.frame, node.position)) {
-//      [node removeFromParent];
-//    }
-//  }];
+  //  [_mainLayer enumerateChildNodesWithName:@"halo" usingBlock:^(SKNode *node, BOOL *stop) {
+  //    if (!CGRectContainsPoint(self.frame, node.position)) {
+  //      [node removeFromParent];
+  //    }
+  //  }];
 }
 
 @end
