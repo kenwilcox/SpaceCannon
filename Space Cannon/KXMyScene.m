@@ -229,8 +229,8 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   explosion.numParticlesToEmit = 100;
   explosion.emissionAngleRange = 360;
   explosion.particleScale = 0.2;
-  explosion.particleScaleSpeed = - 0.2;
-  explosion.particleSpeed = 200;
+  explosion.particleScaleSpeed = -0.2;
+  explosion.particleSpeed = 100;
   
   explosion.position = position;
   [_mainLayer addChild:explosion];
