@@ -18,7 +18,10 @@
 // radians = degrees * (π / 180)
 // degrees = radians * (180 / π)
 
-static const CGFloat SHOOT_SPEED = 1000.0f;
+static const CGFloat kKXShootSpeed = 1000.0f;
+static const CGFloat kKXHaloLowAngle = 200.0 * M_PI / 180.0;
+static const CGFloat kKXHaloHighAngle = 340.0 * M_PI / 180.0;
+static const CGFloat kKXHaloSpeed = 100.0;
 
 static inline CGVector radiansToVector(CGFloat radians)
 {
@@ -73,6 +76,11 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
                                                   [SKAction rotateByAngle:-M_PI duration:2]]];
     [_cannon runAction:[SKAction repeatActionForever:rotateCannon]];
     
+    // Create spawn halo actions
+    SKAction *spawnHalo = [SKAction sequence:@[[SKAction waitForDuration:2 withRange:1],
+                                               [SKAction performSelector:@selector(spawnHalo) onTarget:self]]];
+    [self runAction:[SKAction repeatActionForever:spawnHalo]];
+    
   }
   return self;
 }
@@ -89,7 +97,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   [_mainLayer addChild:ball];
   
   ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:6.0];
-  ball.physicsBody.velocity = CGVectorMake(rotationVector.dx * SHOOT_SPEED, rotationVector.dy * SHOOT_SPEED);
+  ball.physicsBody.velocity = CGVectorMake(rotationVector.dx * kKXShootSpeed, rotationVector.dy * kKXShootSpeed);
   
   // Bounciness
   ball.physicsBody.restitution = 1.0;
@@ -97,6 +105,25 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   ball.physicsBody.linearDamping = 0.0;
   // Turn off friction
   ball.physicsBody.friction = 0.0;
+}
+
+-(void)spawnHalo
+{
+  // Create halo node
+  SKSpriteNode *halo = [SKSpriteNode spriteNodeWithImageNamed:@"Halo"];
+  halo.name = @"halo";
+  CGFloat halfHalo = halo.size.width * 0.5;
+  halo.position = CGPointMake(randomInRange(halfHalo, self.size.width - halfHalo),self.size.height + halfHalo);
+  halo.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:16.0];
+  
+  CGVector direction = radiansToVector(randomInRange(kKXHaloLowAngle, kKXHaloHighAngle));
+  
+  halo.physicsBody.velocity = CGVectorMake(direction.dx * kKXHaloSpeed, direction.dy * kKXHaloSpeed);
+  halo.physicsBody.restitution = 1.0;
+  halo.physicsBody.linearDamping = 0.0;
+  halo.physicsBody.friction = 0.0;
+  
+  [_mainLayer addChild:halo];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -131,6 +158,13 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
       [node removeFromParent];
     }
   }];
+
+  // Can't clean up this way - they are created off screen and cleaned up - dooh
+//  [_mainLayer enumerateChildNodesWithName:@"halo" usingBlock:^(SKNode *node, BOOL *stop) {
+//    if (!CGRectContainsPoint(self.frame, node.position)) {
+//      [node removeFromParent];
+//    }
+//  }];
 }
 
 @end
