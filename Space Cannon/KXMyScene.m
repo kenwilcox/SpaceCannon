@@ -48,6 +48,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     
     // Turn off gravity
     self.physicsWorld.gravity = CGVectorMake(0.0f, 0.0f);
+    self.physicsWorld.contactDelegate = self;
     
     // Add background
     SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"Starfield"];
@@ -130,8 +131,30 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   halo.physicsBody.friction = 0.0;
   halo.physicsBody.categoryBitMask = kKXHaloCategory;
   halo.physicsBody.collisionBitMask = kKXEdgeCategory;
+  halo.physicsBody.contactTestBitMask = kKXBallCategory;
   
   [_mainLayer addChild:halo];
+}
+
+- (void)didBeginContact:(SKPhysicsContact *)contact
+{
+  // We need to figure out what hit what
+  SKPhysicsBody *firstBody;
+  SKPhysicsBody *secondBody;
+  
+  if (contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask) {
+    firstBody = contact.bodyA;
+    secondBody = contact.bodyB;
+  } else {
+    firstBody = contact.bodyB;
+    secondBody = contact.bodyA;
+  }
+  
+  if (firstBody.categoryBitMask == kKXHaloCategory && secondBody.categoryBitMask == kKXBallCategory) {
+    // Collision between halo and ball
+    [firstBody.node removeFromParent];
+    [secondBody.node removeFromParent];
+  }
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
