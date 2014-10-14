@@ -162,8 +162,19 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 -(void)addExplosion:(CGPoint)position
 {
   // Load the Resource
-  NSString *explosionPath = [[NSBundle mainBundle] pathForResource:@"HaloExplosion" ofType:@"sks"];
-  SKEmitterNode *explosion = [NSKeyedUnarchiver unarchiveObjectWithFile:explosionPath];
+//  NSString *explosionPath = [[NSBundle mainBundle] pathForResource:@"HaloExplosion" ofType:@"sks"];
+//  SKEmitterNode *explosion = [NSKeyedUnarchiver unarchiveObjectWithFile:explosionPath];
+  
+  // If you want to do it maunally
+  SKEmitterNode *explosion = [SKEmitterNode node];
+  explosion.particleTexture = [SKTexture textureWithImageNamed:@"spark"];
+  explosion.particleLifetime = 1;
+  explosion.particleBirthRate = 2000;
+  explosion.numParticlesToEmit = 100;
+  explosion.emissionAngleRange = 360;
+  explosion.particleScale = 0.2;
+  explosion.particleScaleSpeed = - 0.2;
+  explosion.particleSpeed = 200;
   
   explosion.position = position;
   [_mainLayer addChild:explosion];
