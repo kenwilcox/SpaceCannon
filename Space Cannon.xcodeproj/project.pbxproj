@@ -36,6 +36,8 @@
 		BE410C6719EB33DC00F5E207 /* Halo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BE410C5B19EB33DC00F5E207 /* Halo@2x.png */; };
 		BE410C6819EB33DC00F5E207 /* Starfield@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BE410C5C19EB33DC00F5E207 /* Starfield@2x.png */; };
 		BE410C6A19EB36FF00F5E207 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = BE410C6919EB36FF00F5E207 /* README.md */; };
+		BEBC618819ECF5AA0042642E /* HaloExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = BEBC618619ECF5AA0042642E /* HaloExplosion.sks */; };
+		BEBC618919ECF5AA0042642E /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = BEBC618719ECF5AA0042642E /* spark.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +86,8 @@
 		BE410C5B19EB33DC00F5E207 /* Halo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Halo@2x.png"; sourceTree = "<group>"; };
 		BE410C5C19EB33DC00F5E207 /* Starfield@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Starfield@2x.png"; sourceTree = "<group>"; };
 		BE410C6919EB36FF00F5E207 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		BEBC618619ECF5AA0042642E /* HaloExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = HaloExplosion.sks; sourceTree = "<group>"; };
+		BEBC618719ECF5AA0042642E /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +160,8 @@
 				BE410C2F19EB32B800F5E207 /* KXMyScene.m */,
 				BE410C3319EB32B800F5E207 /* Images.xcassets */,
 				BE410C1D19EB32B800F5E207 /* Supporting Files */,
+				BEBC618619ECF5AA0042642E /* HaloExplosion.sks */,
+				BEBC618719ECF5AA0042642E /* spark.png */,
 			);
 			path = "Space Cannon";
 			sourceTree = "<group>";
@@ -286,6 +292,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE410C6719EB33DC00F5E207 /* Halo@2x.png in Resources */,
+				BEBC618919ECF5AA0042642E /* spark.png in Resources */,
 				BE410C6519EB33DC00F5E207 /* BlueBar@2x.png in Resources */,
 				BE410C2119EB32B800F5E207 /* InfoPlist.strings in Resources */,
 				BE410C6219EB33DC00F5E207 /* Ammo5@2x.png in Resources */,
@@ -295,6 +302,7 @@
 				BE410C3419EB32B800F5E207 /* Images.xcassets in Resources */,
 				BE410C6019EB33DC00F5E207 /* Ammo3@2x.png in Resources */,
 				BE410C2A19EB32B800F5E207 /* Main.storyboard in Resources */,
+				BEBC618819ECF5AA0042642E /* HaloExplosion.sks in Resources */,
 				BE410C5D19EB33DC00F5E207 /* Ammo0@2x.png in Resources */,
 				BE410C5F19EB33DC00F5E207 /* Ammo2@2x.png in Resources */,
 				BE410C6419EB33DC00F5E207 /* Block@2x.png in Resources */,
@@ -529,6 +537,7 @@
 				BE410C4C19EB32B800F5E207 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BE410C4D19EB32B800F5E207 /* Build configuration list for PBXNativeTarget "Space CannonTests" */ = {
 			isa = XCConfigurationList;
@@ -537,6 +546,7 @@
 				BE410C4F19EB32B800F5E207 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
