@@ -28,6 +28,12 @@ static inline CGVector radiansToVector(CGFloat radians)
   return vector;
 }
 
+static inline CGFloat randomInRange(CGFloat low, CGFloat high)
+{
+  CGFloat value = arc4random_uniform(UINT32_MAX) / (CGFloat)UINT32_MAX;
+  return value * (high - low) + low;
+}
+
 - (id)initWithSize:(CGSize)size {
   if (self = [super initWithSize:size]) {
     /* Setup your scene here */
