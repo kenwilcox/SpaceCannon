@@ -98,12 +98,6 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     
     self.ammo = 5;
     
-    SKAction *incrementAmmo = [SKAction sequence:@[[SKAction waitForDuration:1],
-                                                   [SKAction runBlock:^{
-      self.ammo++;
-    }]]];
-    [self runAction:[SKAction repeatActionForever:incrementAmmo]];
-    
   }
   return self;
 }
@@ -118,7 +112,14 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 
 - (void)shoot
 {
-  if (self.ammo > 0) {
+  int availableAmmo = 2;
+  for (SKNode *node in _mainLayer.children) {
+    if ([node.name isEqualToString:@"ball"]) {
+      availableAmmo--;
+    }
+  }
+  
+  if (availableAmmo > 0) {
     self.ammo--;
     
     // Create ball node
