@@ -15,6 +15,13 @@
   SKSpriteNode *_ammoDisplay;
   SKLabelNode *_scoreLabel;
   BOOL _didShoot;
+  
+  // Sound Actions
+  SKAction *_bounceSound;
+  SKAction *_deepExplosionSound;
+  SKAction *_explosionSound;
+  SKAction *_laserSound;
+  SKAction *_zapSound;
 }
 
 // radians = degrees * (π / 180)
@@ -113,6 +120,13 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     _scoreLabel.fontSize = 15;
     [self addChild:_scoreLabel];
     
+    _bounceSound = [SKAction playSoundFileNamed:@"Bounce.caf" waitForCompletion:NO];
+    _deepExplosionSound = [SKAction playSoundFileNamed:@"DeepExplosion.caf" waitForCompletion:NO];
+    _explosionSound = [SKAction playSoundFileNamed:@"Explosion.caf" waitForCompletion:NO];
+    _laserSound = [SKAction playSoundFileNamed:@"Laser.caf" waitForCompletion:NO];
+    _zapSound = [SKAction playSoundFileNamed:@"Zap.caf" waitForCompletion:NO];
+    
+    
     [self newGame];
   }
   return self;
@@ -184,6 +198,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     ball.physicsBody.categoryBitMask = kKXBallCategory;
     ball.physicsBody.collisionBitMask = kKXEdgeCategory;// | kKXHaloCategory;
     ball.physicsBody.contactTestBitMask = kKXEdgeCategory;
+    [self runAction:_laserSound];
   }
 }
 
@@ -204,7 +219,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   halo.physicsBody.friction = 0.0;
   halo.physicsBody.categoryBitMask = kKXHaloCategory;
   halo.physicsBody.collisionBitMask = kKXEdgeCategory;
-  halo.physicsBody.contactTestBitMask = kKXBallCategory | kKXShieldCategory | kKXLifeBarCategory;
+  halo.physicsBody.contactTestBitMask = kKXBallCategory | kKXShieldCategory | kKXLifeBarCategory | kKXEdgeCategory;
   
   [_mainLayer addChild:halo];
 }
@@ -227,6 +242,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     // Collision between halo and ball
     self.score++;
     [self addExplosion:firstBody.node.position withName:@"NewHaloExplosion"];
+    [self runAction:_explosionSound];
     
     [firstBody.node removeFromParent];
     [secondBody.node removeFromParent];
@@ -235,6 +251,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   if (firstBody.categoryBitMask == kKXHaloCategory && secondBody.categoryBitMask == kKXShieldCategory) {
     // Collision between halo and shield
     [self addShieldExplosion:firstBody.node.position];
+    [self runAction:_explosionSound];
     
     [firstBody.node removeFromParent];
     [secondBody.node removeFromParent];
@@ -243,6 +260,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   if (firstBody.categoryBitMask == kKXHaloCategory && secondBody.categoryBitMask == kKXLifeBarCategory) {
     // Collision between halo and life bar
     [self addExplosion:secondBody.node.position withName:@"LifeBarExplosion"];
+    [self runAction:_deepExplosionSound];
     [secondBody.node removeFromParent];
     
     [self gameOver];
@@ -250,6 +268,11 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   
   if (firstBody.categoryBitMask == kKXBallCategory && secondBody.categoryBitMask == kKXEdgeCategory) {
     [self addExplosion:contact.contactPoint withName:@"BounceExplosion"];
+    [self runAction:_bounceSound];
+  }
+  
+  if (firstBody.categoryBitMask == kKXHaloCategory && secondBody.categoryBitMask == kKXEdgeCategory) {
+    [self runAction:_zapSound];
   }
 }
 
