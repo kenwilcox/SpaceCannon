@@ -110,6 +110,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     // Setup Sheilds
     for (int i = 0; i < 6; i++) {
       SKSpriteNode *shield = [SKSpriteNode spriteNodeWithImageNamed:@"Block"];
+      shield.name = @"shield";
       shield.position = CGPointMake(35 + (50 *i), 90);
       [_mainLayer addChild:shield];
       shield.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(42, 9)];
@@ -217,16 +218,32 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   
   if (firstBody.categoryBitMask == kKXHaloCategory && secondBody.categoryBitMask == kKXLifeBarCategory) {
     // Collision between halo and life bar
-    [self addExplosion:firstBody.node.position withName:@"HaloExplosion"];
     [self addExplosion:secondBody.node.position withName:@"LifeBarExplosion"];
-    
-    [firstBody.node removeFromParent];
     [secondBody.node removeFromParent];
+    
+    [self gameOver];
   }
   
   if (firstBody.categoryBitMask == kKXBallCategory && secondBody.categoryBitMask == kKXEdgeCategory) {
     [self addExplosion:contact.contactPoint withName:@"BounceExplosion"];
   }
+}
+
+- (void) gameOver
+{
+  [_mainLayer enumerateChildNodesWithName:@"halo" usingBlock:^(SKNode *node, BOOL *stop) {
+    [self addExplosion:node.position withName:@"HaloExplosion"];
+    [node removeFromParent];
+  }];
+  
+  [_mainLayer enumerateChildNodesWithName:@"ball" usingBlock:^(SKNode *node, BOOL *stop) {
+    [node removeFromParent];
+  }];
+  
+  [_mainLayer enumerateChildNodesWithName:@"shield" usingBlock:^(SKNode *node, BOOL *stop) {
+    [self addShieldExplosion:node.position];
+    [node removeFromParent];
+  }];
 }
 
 - (void)addExplosion:(CGPoint)position withName:(NSString*)name
