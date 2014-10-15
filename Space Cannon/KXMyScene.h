@@ -12,6 +12,5 @@
 
 @property (nonatomic) int ammo;
 @property (nonatomic) int score;
-@property (nonatomic) BOOL isGameOver;
 
 @end

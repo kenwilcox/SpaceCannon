@@ -7,14 +7,17 @@
 //
 
 #import "KXMyScene.h"
+#import "KXMenu.h"
 
 @implementation KXMyScene
 {
   SKNode *_mainLayer;
+  KXMenu *_menu;
   SKSpriteNode *_cannon;
   SKSpriteNode *_ammoDisplay;
   SKLabelNode *_scoreLabel;
   BOOL _didShoot;
+  BOOL _gameOver;
   
   // Sound Actions
   SKAction *_bounceSound;
@@ -126,8 +129,12 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     _laserSound = [SKAction playSoundFileNamed:@"Laser.caf" waitForCompletion:NO];
     _zapSound = [SKAction playSoundFileNamed:@"Zap.caf" waitForCompletion:NO];
     
-    
-    [self newGame];
+    // Setup menu
+    _menu = [[KXMenu alloc] init];
+    _menu.position = CGPointMake(self.size.width * 0.5, self.size.height -220);
+    [self addChild:_menu];
+    _gameOver = YES;
+    //[self newGame];
   }
   return self;
 }
@@ -136,7 +143,8 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 {
   self.ammo = 5;
   self.score = 0;
-  self.isGameOver = NO;
+  _gameOver = NO;
+  _menu.hidden = YES;
   
   [_mainLayer removeAllChildren];
   
@@ -177,7 +185,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 
 - (void)shoot
 {
-  if (self.ammo > 0 && !self.isGameOver) {
+  if (self.ammo > 0) {
     self.ammo--;
     
     // Create ball node
@@ -278,7 +286,8 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 
 - (void) gameOver
 {
-  self.isGameOver = YES;
+  _gameOver = YES;
+  _menu.hidden = NO;
   
   [_mainLayer enumerateChildNodesWithName:@"halo" usingBlock:^(SKNode *node, BOOL *stop) {
     [self addExplosion:node.position withName:@"HaloExplosion"];
@@ -336,10 +345,22 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   /* Called when a touch begins */
   
   //for (UITouch *touch in touches) {
-  _didShoot = YES;
+  if (!_gameOver) {
+    _didShoot = YES;
+  }
   //}
 }
 
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+  for (UITouch *touch in touches) {
+    if (_gameOver) {
+      SKNode *node = [_menu nodeAtPoint:[touch locationInNode:_menu]];
+      if ([node.name isEqualToString:@"Play"]) {
+        [self newGame];
+      }
+    }
+  }
+}
 
 /* SpriteKit Event loop: update, didEvaluateActions, didSimulatePhysics */
 
