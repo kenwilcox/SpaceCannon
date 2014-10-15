@@ -37,6 +37,11 @@
 		BE410C6819EB33DC00F5E207 /* Starfield@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BE410C5C19EB33DC00F5E207 /* Starfield@2x.png */; };
 		BE410C6A19EB36FF00F5E207 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = BE410C6919EB36FF00F5E207 /* README.md */; };
 		BE64EB6419EE25610029AC9F /* BounceExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = BE64EB6319EE25610029AC9F /* BounceExplosion.sks */; };
+		BE64EB7019EE37F40029AC9F /* Bounce.caf in Resources */ = {isa = PBXBuildFile; fileRef = BE64EB6619EE37F40029AC9F /* Bounce.caf */; };
+		BE64EB7219EE37F40029AC9F /* DeepExplosion.caf in Resources */ = {isa = PBXBuildFile; fileRef = BE64EB6819EE37F40029AC9F /* DeepExplosion.caf */; };
+		BE64EB7419EE37F40029AC9F /* Explosion.caf in Resources */ = {isa = PBXBuildFile; fileRef = BE64EB6A19EE37F40029AC9F /* Explosion.caf */; };
+		BE64EB7619EE37F40029AC9F /* Laser.caf in Resources */ = {isa = PBXBuildFile; fileRef = BE64EB6C19EE37F40029AC9F /* Laser.caf */; };
+		BE64EB7819EE37F40029AC9F /* Zap.caf in Resources */ = {isa = PBXBuildFile; fileRef = BE64EB6E19EE37F40029AC9F /* Zap.caf */; };
 		BEA5B42819EE066000D9E84E /* HaloExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = BEA5B42719EE066000D9E84E /* HaloExplosion.sks */; };
 		BEA5B43019EE0C1B00D9E84E /* LifeBarExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = BEA5B42F19EE0C1B00D9E84E /* LifeBarExplosion.sks */; };
 		BEA5B43219EE0F7C00D9E84E /* NewHaloExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = BEA5B43119EE0F7C00D9E84E /* NewHaloExplosion.sks */; };
@@ -90,6 +95,11 @@
 		BE410C5C19EB33DC00F5E207 /* Starfield@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Starfield@2x.png"; sourceTree = "<group>"; };
 		BE410C6919EB36FF00F5E207 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		BE64EB6319EE25610029AC9F /* BounceExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BounceExplosion.sks; sourceTree = "<group>"; };
+		BE64EB6619EE37F40029AC9F /* Bounce.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Bounce.caf; sourceTree = "<group>"; };
+		BE64EB6819EE37F40029AC9F /* DeepExplosion.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DeepExplosion.caf; sourceTree = "<group>"; };
+		BE64EB6A19EE37F40029AC9F /* Explosion.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Explosion.caf; sourceTree = "<group>"; };
+		BE64EB6C19EE37F40029AC9F /* Laser.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Laser.caf; sourceTree = "<group>"; };
+		BE64EB6E19EE37F40029AC9F /* Zap.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zap.caf; sourceTree = "<group>"; };
 		BEA5B42719EE066000D9E84E /* HaloExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = HaloExplosion.sks; sourceTree = "<group>"; };
 		BEA5B42F19EE0C1B00D9E84E /* LifeBarExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LifeBarExplosion.sks; sourceTree = "<group>"; };
 		BEA5B43119EE0F7C00D9E84E /* NewHaloExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = NewHaloExplosion.sks; sourceTree = "<group>"; };
@@ -156,6 +166,7 @@
 		BE410C1C19EB32B800F5E207 /* Space Cannon */ = {
 			isa = PBXGroup;
 			children = (
+				BE64EB6519EE37F40029AC9F /* Sounds */,
 				BE410C5019EB33DC00F5E207 /* Images */,
 				BE410C2519EB32B800F5E207 /* KXAppDelegate.h */,
 				BE410C2619EB32B800F5E207 /* KXAppDelegate.m */,
@@ -221,6 +232,18 @@
 				BE410C5C19EB33DC00F5E207 /* Starfield@2x.png */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		BE64EB6519EE37F40029AC9F /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				BE64EB6619EE37F40029AC9F /* Bounce.caf */,
+				BE64EB6819EE37F40029AC9F /* DeepExplosion.caf */,
+				BE64EB6A19EE37F40029AC9F /* Explosion.caf */,
+				BE64EB6C19EE37F40029AC9F /* Laser.caf */,
+				BE64EB6E19EE37F40029AC9F /* Zap.caf */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -306,11 +329,14 @@
 				BE64EB6419EE25610029AC9F /* BounceExplosion.sks in Resources */,
 				BE410C2119EB32B800F5E207 /* InfoPlist.strings in Resources */,
 				BE410C6219EB33DC00F5E207 /* Ammo5@2x.png in Resources */,
+				BE64EB7619EE37F40029AC9F /* Laser.caf in Resources */,
 				BE410C5E19EB33DC00F5E207 /* Ammo1@2x.png in Resources */,
+				BE64EB7219EE37F40029AC9F /* DeepExplosion.caf in Resources */,
 				BE410C6319EB33DC00F5E207 /* Ball@2x.png in Resources */,
 				BE410C6A19EB36FF00F5E207 /* README.md in Resources */,
 				BE410C3419EB32B800F5E207 /* Images.xcassets in Resources */,
 				BE410C6019EB33DC00F5E207 /* Ammo3@2x.png in Resources */,
+				BE64EB7419EE37F40029AC9F /* Explosion.caf in Resources */,
 				BEA5B43219EE0F7C00D9E84E /* NewHaloExplosion.sks in Resources */,
 				BE410C2A19EB32B800F5E207 /* Main.storyboard in Resources */,
 				BEA5B42819EE066000D9E84E /* HaloExplosion.sks in Resources */,
@@ -318,6 +344,8 @@
 				BE410C5F19EB33DC00F5E207 /* Ammo2@2x.png in Resources */,
 				BE410C6419EB33DC00F5E207 /* Block@2x.png in Resources */,
 				BE410C6819EB33DC00F5E207 /* Starfield@2x.png in Resources */,
+				BE64EB7819EE37F40029AC9F /* Zap.caf in Resources */,
+				BE64EB7019EE37F40029AC9F /* Bounce.caf in Resources */,
 				BEA5B43019EE0C1B00D9E84E /* LifeBarExplosion.sks in Resources */,
 				BE410C6619EB33DC00F5E207 /* Cannon@2x.png in Resources */,
 				BE410C6119EB33DC00F5E207 /* Ammo4@2x.png in Resources */,
