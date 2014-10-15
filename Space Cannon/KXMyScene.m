@@ -14,6 +14,7 @@
   SKSpriteNode *_cannon;
   SKSpriteNode *_ammoDisplay;
   BOOL _didShoot;
+  BOOL _isGameOver;
 }
 
 // radians = degrees * (π / 180)
@@ -81,7 +82,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     // Add cannon
     _cannon = [SKSpriteNode spriteNodeWithImageNamed:@"Cannon"];
     _cannon.position = CGPointMake(self.size.width * 0.5, 0.0);
-    [_mainLayer addChild:_cannon];
+    [self addChild:_cannon];
     
     // Create cannon rotation actions
     SKAction *rotateCannon = [SKAction sequence:@[[SKAction rotateByAngle:M_PI duration:2],
@@ -97,9 +98,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     _ammoDisplay = [SKSpriteNode spriteNodeWithImageNamed:@"Ammo5"];
     _ammoDisplay.anchorPoint = CGPointMake(0.5, 0.0);
     _ammoDisplay.position = _cannon.position;
-    [_mainLayer addChild:_ammoDisplay];
-    
-    self.ammo = 5;
+    [self addChild:_ammoDisplay];
     
     SKAction *incrementAmmo = [SKAction sequence:@[[SKAction waitForDuration:1],
                                                    [SKAction runBlock:^{
@@ -107,27 +106,37 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     }]]];
     [self runAction:[SKAction repeatActionForever:incrementAmmo]];
     
-    // Setup Sheilds
-    for (int i = 0; i < 6; i++) {
-      SKSpriteNode *shield = [SKSpriteNode spriteNodeWithImageNamed:@"Block"];
-      shield.name = @"shield";
-      shield.position = CGPointMake(35 + (50 *i), 90);
-      [_mainLayer addChild:shield];
-      shield.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(42, 9)];
-      shield.physicsBody.categoryBitMask = kKXShieldCategory;
-      shield.physicsBody.collisionBitMask = 0;
-    }
-    
-    // Setup Life Bar
-    SKSpriteNode *lifeBar = [SKSpriteNode spriteNodeWithImageNamed:@"BlueBar"];
-    CGFloat halfLifeBar = lifeBar.size.width * 0.5;
-    lifeBar.position = CGPointMake(self.size.width * 0.5, 70);
-    lifeBar.physicsBody = [SKPhysicsBody bodyWithEdgeFromPoint:CGPointMake(-halfLifeBar, 0)
-                                                       toPoint:CGPointMake(halfLifeBar, 0)];
-    lifeBar.physicsBody.categoryBitMask = kKXLifeBarCategory;
-    [_mainLayer addChild:lifeBar];
+    [self newGame];
   }
   return self;
+}
+
+- (void)newGame
+{
+  self.ammo = 5;
+  _isGameOver = NO;
+  
+  [_mainLayer removeAllChildren];
+  
+  // Setup Sheilds
+  for (int i = 0; i < 6; i++) {
+    SKSpriteNode *shield = [SKSpriteNode spriteNodeWithImageNamed:@"Block"];
+    shield.name = @"shield";
+    shield.position = CGPointMake(35 + (50 *i), 90);
+    [_mainLayer addChild:shield];
+    shield.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(42, 9)];
+    shield.physicsBody.categoryBitMask = kKXShieldCategory;
+    shield.physicsBody.collisionBitMask = 0;
+  }
+  
+  // Setup Life Bar
+  SKSpriteNode *lifeBar = [SKSpriteNode spriteNodeWithImageNamed:@"BlueBar"];
+  CGFloat halfLifeBar = lifeBar.size.width * 0.5;
+  lifeBar.position = CGPointMake(self.size.width * 0.5, 70);
+  lifeBar.physicsBody = [SKPhysicsBody bodyWithEdgeFromPoint:CGPointMake(-halfLifeBar, 0)
+                                                     toPoint:CGPointMake(halfLifeBar, 0)];
+  lifeBar.physicsBody.categoryBitMask = kKXLifeBarCategory;
+  [_mainLayer addChild:lifeBar];
 }
 
 -(void)setAmmo:(int)ammo
@@ -140,7 +149,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 
 - (void)shoot
 {
-  if (self.ammo > 0) {
+  if (self.ammo > 0 && !_isGameOver) {
     self.ammo--;
     
     // Create ball node
@@ -231,6 +240,8 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 
 - (void) gameOver
 {
+  _isGameOver = YES;
+  
   [_mainLayer enumerateChildNodesWithName:@"halo" usingBlock:^(SKNode *node, BOOL *stop) {
     [self addExplosion:node.position withName:@"HaloExplosion"];
     [node removeFromParent];
@@ -244,6 +255,8 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     [self addShieldExplosion:node.position];
     [node removeFromParent];
   }];
+  
+  [self performSelector:@selector(newGame) withObject:nil afterDelay:1.5];
 }
 
 - (void)addExplosion:(CGPoint)position withName:(NSString*)name
