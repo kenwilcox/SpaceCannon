@@ -13,6 +13,7 @@
   SKNode *_mainLayer;
   SKSpriteNode *_cannon;
   SKSpriteNode *_ammoDisplay;
+  SKLabelNode *_scoreLabel;
   BOOL _didShoot;
 }
 
@@ -105,6 +106,13 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     }]]];
     [self runAction:[SKAction repeatActionForever:incrementAmmo]];
     
+    // Set up score display
+    _scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"DIN Alternate"];
+    _scoreLabel.position = CGPointMake(15, 10);
+    _scoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
+    _scoreLabel.fontSize = 15;
+    [self addChild:_scoreLabel];
+    
     [self newGame];
   }
   return self;
@@ -113,6 +121,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 - (void)newGame
 {
   self.ammo = 5;
+  self.score = 0;
   self.isGameOver = NO;
   
   [_mainLayer removeAllChildren];
@@ -144,6 +153,12 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     _ammo = ammo;
     _ammoDisplay.texture = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"Ammo%d", ammo]];
   }
+}
+
+- (void)setScore:(int)score
+{
+  _score = score;
+  _scoreLabel.text = [NSString stringWithFormat:@"Score: %d", score];
 }
 
 - (void)shoot
@@ -210,6 +225,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   
   if (firstBody.categoryBitMask == kKXHaloCategory && secondBody.categoryBitMask == kKXBallCategory) {
     // Collision between halo and ball
+    self.score++;
     [self addExplosion:firstBody.node.position withName:@"NewHaloExplosion"];
     
     [firstBody.node removeFromParent];
