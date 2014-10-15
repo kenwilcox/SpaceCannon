@@ -10,4 +10,7 @@
 
 @interface KXMenu : SKNode
 
+@property (nonatomic) int score;
+@property (nonatomic) int topScore;
+
 @end

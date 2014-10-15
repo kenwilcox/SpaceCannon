@@ -309,6 +309,12 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     [node removeFromParent];
   }];
   
+  // Update the score before we show it
+  _menu.score = self.score;
+  if (self.score > _menu.topScore) {
+    _menu.topScore = self.score;
+  }
+  
   // Let's see the animation before the menu
   _gameOver = YES;
   _menu.hidden = NO;
