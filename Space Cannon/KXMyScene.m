@@ -134,7 +134,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     _menu.position = CGPointMake(self.size.width * 0.5, self.size.height -220);
     [self addChild:_menu];
     _gameOver = YES;
-    //[self newGame];
+
   }
   return self;
 }
@@ -143,8 +143,6 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 {
   self.ammo = 5;
   self.score = 0;
-  _gameOver = NO;
-  _menu.hidden = YES;
   
   [_mainLayer removeAllChildren];
   
@@ -167,6 +165,9 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
                                                      toPoint:CGPointMake(halfLifeBar, 0)];
   lifeBar.physicsBody.categoryBitMask = kKXLifeBarCategory;
   [_mainLayer addChild:lifeBar];
+  
+  _gameOver = NO;
+  _menu.hidden = YES;
 }
 
 -(void)setAmmo:(int)ammo
@@ -286,9 +287,6 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 
 - (void) gameOver
 {
-  _gameOver = YES;
-  _menu.hidden = NO;
-  
   [_mainLayer enumerateChildNodesWithName:@"halo" usingBlock:^(SKNode *node, BOOL *stop) {
     [self addExplosion:node.position withName:@"HaloExplosion"];
     [node removeFromParent];
@@ -303,7 +301,9 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     [node removeFromParent];
   }];
   
-  [self performSelector:@selector(newGame) withObject:nil afterDelay:1.5];
+  // Let's see the animation before the menu
+  _gameOver = YES;
+  _menu.hidden = NO;
 }
 
 - (void)addExplosion:(CGPoint)position withName:(NSString*)name
