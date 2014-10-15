@@ -287,7 +287,9 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   }
   
   if (firstBody.categoryBitMask == kKXHaloCategory && secondBody.categoryBitMask == kKXEdgeCategory) {
-    [self runAction:_zapSound];
+    if (!_gameOver) {
+      [self runAction:_zapSound];
+    }
   }
 }
 
