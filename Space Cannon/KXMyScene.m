@@ -200,7 +200,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   
   if (firstBody.categoryBitMask == kKXHaloCategory && secondBody.categoryBitMask == kKXBallCategory) {
     // Collision between halo and ball
-    [self addExplosion:firstBody.node.position withName:@"HaloExplosion"];
+    [self addExplosion:firstBody.node.position withName:@"NewExplosion"];
     
     [firstBody.node removeFromParent];
     [secondBody.node removeFromParent];

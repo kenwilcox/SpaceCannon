@@ -38,6 +38,7 @@
 		BE410C6A19EB36FF00F5E207 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = BE410C6919EB36FF00F5E207 /* README.md */; };
 		BEA5B42819EE066000D9E84E /* HaloExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = BEA5B42719EE066000D9E84E /* HaloExplosion.sks */; };
 		BEA5B43019EE0C1B00D9E84E /* LifeBarExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = BEA5B42F19EE0C1B00D9E84E /* LifeBarExplosion.sks */; };
+		BEA5B43219EE0F7C00D9E84E /* NewExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = BEA5B43119EE0F7C00D9E84E /* NewExplosion.sks */; };
 		BEBC618919ECF5AA0042642E /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = BEBC618719ECF5AA0042642E /* spark.png */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +90,7 @@
 		BE410C6919EB36FF00F5E207 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		BEA5B42719EE066000D9E84E /* HaloExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = HaloExplosion.sks; sourceTree = "<group>"; };
 		BEA5B42F19EE0C1B00D9E84E /* LifeBarExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LifeBarExplosion.sks; sourceTree = "<group>"; };
+		BEA5B43119EE0F7C00D9E84E /* NewExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = NewExplosion.sks; sourceTree = "<group>"; };
 		BEBC618719ECF5AA0042642E /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -162,6 +164,7 @@
 				BE410C2F19EB32B800F5E207 /* KXMyScene.m */,
 				BE410C3319EB32B800F5E207 /* Images.xcassets */,
 				BE410C1D19EB32B800F5E207 /* Supporting Files */,
+				BEA5B43119EE0F7C00D9E84E /* NewExplosion.sks */,
 				BEA5B42719EE066000D9E84E /* HaloExplosion.sks */,
 				BEBC618719ECF5AA0042642E /* spark.png */,
 				BEA5B42F19EE0C1B00D9E84E /* LifeBarExplosion.sks */,
@@ -304,6 +307,7 @@
 				BE410C6A19EB36FF00F5E207 /* README.md in Resources */,
 				BE410C3419EB32B800F5E207 /* Images.xcassets in Resources */,
 				BE410C6019EB33DC00F5E207 /* Ammo3@2x.png in Resources */,
+				BEA5B43219EE0F7C00D9E84E /* NewExplosion.sks in Resources */,
 				BE410C2A19EB32B800F5E207 /* Main.storyboard in Resources */,
 				BEA5B42819EE066000D9E84E /* HaloExplosion.sks in Resources */,
 				BE410C5D19EB33DC00F5E207 /* Ammo0@2x.png in Resources */,
