@@ -11,5 +11,6 @@
 @interface KXMyScene : SKScene <SKPhysicsContactDelegate>
 
 @property (nonatomic) int ammo;
+@property (nonatomic) BOOL isGameOver;
 
 @end

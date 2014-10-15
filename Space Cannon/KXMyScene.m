@@ -14,7 +14,6 @@
   SKSpriteNode *_cannon;
   SKSpriteNode *_ammoDisplay;
   BOOL _didShoot;
-  BOOL _isGameOver;
 }
 
 // radians = degrees * (π / 180)
@@ -114,7 +113,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 - (void)newGame
 {
   self.ammo = 5;
-  _isGameOver = NO;
+  self.isGameOver = NO;
   
   [_mainLayer removeAllChildren];
   
@@ -149,7 +148,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 
 - (void)shoot
 {
-  if (self.ammo > 0 && !_isGameOver) {
+  if (self.ammo > 0 && !self.isGameOver) {
     self.ammo--;
     
     // Create ball node
@@ -240,7 +239,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 
 - (void) gameOver
 {
-  _isGameOver = YES;
+  self.isGameOver = YES;
   
   [_mainLayer enumerateChildNodesWithName:@"halo" usingBlock:^(SKNode *node, BOOL *stop) {
     [self addExplosion:node.position withName:@"HaloExplosion"];
