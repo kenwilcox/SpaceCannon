@@ -159,6 +159,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     ball.physicsBody.friction = 0.0;
     ball.physicsBody.categoryBitMask = kKXBallCategory;
     ball.physicsBody.collisionBitMask = kKXEdgeCategory;// | kKXHaloCategory;
+    ball.physicsBody.contactTestBitMask = kKXEdgeCategory;
   }
 }
 
@@ -200,7 +201,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   
   if (firstBody.categoryBitMask == kKXHaloCategory && secondBody.categoryBitMask == kKXBallCategory) {
     // Collision between halo and ball
-    [self addExplosion:firstBody.node.position withName:@"NewExplosion"];
+    [self addExplosion:firstBody.node.position withName:@"NewHaloExplosion"];
     
     [firstBody.node removeFromParent];
     [secondBody.node removeFromParent];
@@ -221,6 +222,10 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     
     [firstBody.node removeFromParent];
     [secondBody.node removeFromParent];
+  }
+  
+  if (firstBody.categoryBitMask == kKXBallCategory && secondBody.categoryBitMask == kKXEdgeCategory) {
+    [self addExplosion:contact.contactPoint withName:@"BounceExplosion"];
   }
 }
 
