@@ -208,7 +208,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 - (void)addHaloExplosion:(CGPoint)position
 {
   // Load the Resource
-  NSString *explosionPath = [[NSBundle mainBundle] pathForResource:@"HaloExplosion" ofType:@"sks"];
+  NSString *explosionPath = [[NSBundle mainBundle] pathForResource:@"NewExplosion" ofType:@"sks"];
   SKEmitterNode *explosion = [NSKeyedUnarchiver unarchiveObjectWithFile:explosionPath];
     
   explosion.position = position;
