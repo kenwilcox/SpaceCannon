@@ -224,6 +224,13 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     ball.physicsBody.collisionBitMask = kKXEdgeCategory;// | kKXHaloCategory;
     ball.physicsBody.contactTestBitMask = kKXEdgeCategory;
     [self runAction:_laserSound];
+    
+    // Create trail
+    NSString *ballTrailPath = [[NSBundle mainBundle] pathForResource:@"BallTrail" ofType:@"sks"];
+    SKEmitterNode *ballTrail = [NSKeyedUnarchiver unarchiveObjectWithFile:ballTrailPath];
+    // Without the following line the ball looks more like a spark (kinda cool)
+    ballTrail.targetNode = _mainLayer;
+    [ball addChild:ballTrail];
   }
 }
 
