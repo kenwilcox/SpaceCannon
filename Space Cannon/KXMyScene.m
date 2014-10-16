@@ -266,6 +266,8 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     [self addExplosion:firstBody.node.position withName:@"NewHaloExplosion"];
     [self runAction:_explosionSound];
     
+    // Maybe we want to allow this?
+    //firstBody.categoryBitMask = 0;
     [firstBody.node removeFromParent];
     [secondBody.node removeFromParent];
   }
@@ -414,12 +416,12 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     }
   }];
   
-  // Can't clean up this way - they are created off screen and cleaned up - dooh
-  //  [_mainLayer enumerateChildNodesWithName:@"halo" usingBlock:^(SKNode *node, BOOL *stop) {
-  //    if (!CGRectContainsPoint(self.frame, node.position)) {
-  //      [node removeFromParent];
-  //    }
-  //  }];
+  [_mainLayer enumerateChildNodesWithName:@"halo" usingBlock:^(SKNode *node, BOOL *stop) {
+    // Test if we're at the bottom of the screen
+    if (node.position.y + node.frame.size.height < 0) {
+      [node removeFromParent];
+    }
+  }];
 }
 
 @end
