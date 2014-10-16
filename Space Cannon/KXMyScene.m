@@ -229,10 +229,12 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 
 -(void)spawnHalo
 {
-  // Increase spawn speed
-  SKAction *spawnHaloAction = [self actionForKey:kKXKeySpawnHalo];
-  if (spawnHaloAction.speed < 1.5) {
-    spawnHaloAction.speed += 0.01;
+  // Increase spawn speed if not on menu
+  if (!_gameOver) {
+    SKAction *spawnHaloAction = [self actionForKey:kKXKeySpawnHalo];
+    if (spawnHaloAction.speed < 1.5) {
+      spawnHaloAction.speed += 0.01;
+    }
   }
   
   // Create halo node
