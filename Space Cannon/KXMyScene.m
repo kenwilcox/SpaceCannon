@@ -77,13 +77,13 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     
     // Add edges
     SKNode *leftEdge = [[SKNode alloc] init];
-    leftEdge.physicsBody = [SKPhysicsBody bodyWithEdgeFromPoint:CGPointZero toPoint:CGPointMake(0.0, self.size.height)];
+    leftEdge.physicsBody = [SKPhysicsBody bodyWithEdgeFromPoint:CGPointZero toPoint:CGPointMake(0.0, self.size.height + 100)];
     leftEdge.position = CGPointZero;
     leftEdge.physicsBody.categoryBitMask = kKXEdgeCategory;
     [self addChild:leftEdge];
     
     SKNode *rightEdge = [[SKNode alloc] init];
-    rightEdge.physicsBody = [SKPhysicsBody bodyWithEdgeFromPoint:CGPointZero toPoint:CGPointMake(0.0, self.size.height)];
+    rightEdge.physicsBody = [SKPhysicsBody bodyWithEdgeFromPoint:CGPointZero toPoint:CGPointMake(0.0, self.size.height + 100)];
     rightEdge.position = CGPointMake(self.size.width, 0.0);
     rightEdge.physicsBody.categoryBitMask = kKXEdgeCategory;
     [self addChild:rightEdge];
