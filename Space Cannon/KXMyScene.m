@@ -45,6 +45,7 @@ static const uint32_t kKXShieldCategory  = 0x1 << 3;
 static const uint32_t kKXLifeBarCategory = 0x1 << 4;
 
 static NSString * const kKXKeyTopScore = @"TopScore";
+static NSString * const kKXKeySpawnHalo = @"SpawnHalo";
 
 static inline CGVector radiansToVector(CGFloat radians)
 {
@@ -105,7 +106,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     // Create spawn halo actions
     SKAction *spawnHalo = [SKAction sequence:@[[SKAction waitForDuration:2 withRange:1],
                                                [SKAction performSelector:@selector(spawnHalo) onTarget:self]]];
-    [self runAction:[SKAction repeatActionForever:spawnHalo]];
+    [self runAction:[SKAction repeatActionForever:spawnHalo] withKey:kKXKeySpawnHalo];
     
     // Setup Ammo Display
     _ammoDisplay = [SKSpriteNode spriteNodeWithImageNamed:@"Ammo5"];
@@ -153,10 +154,6 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 
 - (void)newGame
 {
-  self.ammo = 5;
-  self.score = 0;
-  _scoreLabel.hidden = NO;
-  
   [_mainLayer removeAllChildren];
   
   // Setup Sheilds
@@ -179,8 +176,14 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   lifeBar.physicsBody.categoryBitMask = kKXLifeBarCategory;
   [_mainLayer addChild:lifeBar];
   
-  _gameOver = NO;
+  // Set initial values
+  [self actionForKey:kKXKeySpawnHalo].speed = 1.0;
+  self.ammo = 5;
+  self.score = 0;
+  _scoreLabel.hidden = NO;
   _menu.hidden = YES;
+  _gameOver = NO;
+
 }
 
 -(void)setAmmo:(int)ammo
@@ -226,6 +229,12 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 
 -(void)spawnHalo
 {
+  // Increase spawn speed
+  SKAction *spawnHaloAction = [self actionForKey:kKXKeySpawnHalo];
+  if (spawnHaloAction.speed < 1.5) {
+    spawnHaloAction.speed += 0.01;
+  }
+  
   // Create halo node
   SKSpriteNode *halo = [SKSpriteNode spriteNodeWithImageNamed:@"Halo"];
   halo.name = @"halo";
