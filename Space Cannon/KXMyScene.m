@@ -25,6 +25,8 @@
   SKAction *_explosionSound;
   SKAction *_laserSound;
   SKAction *_zapSound;
+  
+  NSUserDefaults *_userDefaults;
 }
 
 // radians = degrees * (π / 180)
@@ -42,6 +44,7 @@ static const uint32_t kKXEdgeCategory    = 0x1 << 2;
 static const uint32_t kKXShieldCategory  = 0x1 << 3;
 static const uint32_t kKXLifeBarCategory = 0x1 << 4;
 
+static NSString * const kKXKeyTopScore = @"TopScore";
 
 static inline CGVector radiansToVector(CGFloat radians)
 {
@@ -139,6 +142,10 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     self.score = 0;
     _gameOver = YES;
     _scoreLabel.hidden = YES;
+    
+    // Load up top score
+    _userDefaults = [NSUserDefaults standardUserDefaults];
+    _menu.topScore = [_userDefaults integerForKey:kKXKeyTopScore];
 
   }
   return self;
@@ -313,6 +320,8 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   _menu.score = self.score;
   if (self.score > _menu.topScore) {
     _menu.topScore = self.score;
+    [_userDefaults setInteger:self.score forKey:kKXKeyTopScore];
+    [_userDefaults synchronize];
   }
   
   // Let's see the animation before the menu
