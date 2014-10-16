@@ -275,6 +275,9 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     [self addShieldExplosion:firstBody.node.position];
     [self runAction:_explosionSound];
     
+    // Clear the categoryBitMask so only one shield can be destroyed at a time
+    firstBody.categoryBitMask = 0;
+    
     [firstBody.node removeFromParent];
     [secondBody.node removeFromParent];
   }
