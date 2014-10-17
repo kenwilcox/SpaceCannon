@@ -8,6 +8,7 @@
 
 #import "KXMyScene.h"
 #import "KXMenu.h"
+#import "KXBall.h"
 
 @implementation KXMyScene
 {
@@ -206,7 +207,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     self.ammo--;
     
     // Create ball node
-    SKSpriteNode *ball = [SKSpriteNode spriteNodeWithImageNamed:@"Ball"];
+    KXBall *ball = [KXBall spriteNodeWithImageNamed:@"Ball"];
     // Give them a name, so we can find them later
     ball.name = @"ball";
     CGVector rotationVector = radiansToVector(_cannon.zRotation);
@@ -230,7 +231,8 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     SKEmitterNode *ballTrail = [NSKeyedUnarchiver unarchiveObjectWithFile:ballTrailPath];
     // Without the following line the ball looks more like a spark (kinda cool)
     ballTrail.targetNode = _mainLayer;
-    [ball addChild:ballTrail];
+    [_mainLayer addChild:ballTrail];
+    ball.trail = ballTrail;
   }
 }
 
@@ -429,6 +431,12 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   
   // Remove unused nodes
   [_mainLayer enumerateChildNodesWithName:@"ball" usingBlock:^(SKNode *node, BOOL *stop) {
+    
+    // Update trail position
+    if ([node respondsToSelector:@selector(updateTrail)]) {
+      [node performSelector:@selector(updateTrail) withObject:nil afterDelay:0.0];
+    }
+    
     if (!CGRectContainsPoint(self.frame, node.position)) {
       [node removeFromParent];
     }

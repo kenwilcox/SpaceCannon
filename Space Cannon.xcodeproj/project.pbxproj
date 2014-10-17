@@ -47,6 +47,7 @@
 		BE64EB7F19EE3FC60029AC9F /* Title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BE64EB7C19EE3FC60029AC9F /* Title@2x.png */; };
 		BE64EB8219EE40390029AC9F /* KXMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = BE64EB8119EE40390029AC9F /* KXMenu.m */; };
 		BE64EB8519EF9D4E0029AC9F /* BallTrail.sks in Resources */ = {isa = PBXBuildFile; fileRef = BE64EB8419EF9D4E0029AC9F /* BallTrail.sks */; };
+		BE64EB8819F0ED150029AC9F /* KXBall.m in Sources */ = {isa = PBXBuildFile; fileRef = BE64EB8719F0ED150029AC9F /* KXBall.m */; };
 		BEA5B42819EE066000D9E84E /* HaloExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = BEA5B42719EE066000D9E84E /* HaloExplosion.sks */; };
 		BEA5B43019EE0C1B00D9E84E /* LifeBarExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = BEA5B42F19EE0C1B00D9E84E /* LifeBarExplosion.sks */; };
 		BEA5B43219EE0F7C00D9E84E /* NewHaloExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = BEA5B43119EE0F7C00D9E84E /* NewHaloExplosion.sks */; };
@@ -111,6 +112,8 @@
 		BE64EB8019EE40390029AC9F /* KXMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KXMenu.h; sourceTree = "<group>"; };
 		BE64EB8119EE40390029AC9F /* KXMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KXMenu.m; sourceTree = "<group>"; };
 		BE64EB8419EF9D4E0029AC9F /* BallTrail.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BallTrail.sks; sourceTree = "<group>"; };
+		BE64EB8619F0ED150029AC9F /* KXBall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KXBall.h; sourceTree = "<group>"; };
+		BE64EB8719F0ED150029AC9F /* KXBall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KXBall.m; sourceTree = "<group>"; };
 		BEA5B42719EE066000D9E84E /* HaloExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = HaloExplosion.sks; sourceTree = "<group>"; };
 		BEA5B42F19EE0C1B00D9E84E /* LifeBarExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LifeBarExplosion.sks; sourceTree = "<group>"; };
 		BEA5B43119EE0F7C00D9E84E /* NewHaloExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = NewHaloExplosion.sks; sourceTree = "<group>"; };
@@ -189,6 +192,8 @@
 				BE64EB8119EE40390029AC9F /* KXMenu.m */,
 				BE410C2E19EB32B800F5E207 /* KXMyScene.h */,
 				BE410C2F19EB32B800F5E207 /* KXMyScene.m */,
+				BE64EB8619F0ED150029AC9F /* KXBall.h */,
+				BE64EB8719F0ED150029AC9F /* KXBall.m */,
 				BE410C3319EB32B800F5E207 /* Images.xcassets */,
 				BE410C1D19EB32B800F5E207 /* Supporting Files */,
 			);
@@ -401,6 +406,7 @@
 				BE64EB8219EE40390029AC9F /* KXMenu.m in Sources */,
 				BE410C2319EB32B800F5E207 /* main.m in Sources */,
 				BE410C2719EB32B800F5E207 /* KXAppDelegate.m in Sources */,
+				BE64EB8819F0ED150029AC9F /* KXBall.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
