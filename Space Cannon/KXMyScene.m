@@ -51,6 +51,7 @@ static const uint32_t kKXLifeBarCategory = 0x1 << 4;
 static NSString * const kKXKeyTopScore = @"TopScore";
 static NSString * const kKXKeySpawnHalo = @"SpawnHalo";
 static NSString * const kKXKeyMultiplier = @"Multiplier";
+static NSString * const kKXKeyBomb = @"Bomb";
 
 static inline CGVector radiansToVector(CGFloat radians)
 {
@@ -286,8 +287,22 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   halo.physicsBody.collisionBitMask = kKXEdgeCategory;
   halo.physicsBody.contactTestBitMask = kKXBallCategory | kKXShieldCategory | kKXLifeBarCategory | kKXEdgeCategory;
   
-  // Random point multiplier
-  if (!_gameOver && arc4random_uniform(6) == 0) {
+  // Bomb halo
+  int haloCount = 0;
+  for (SKNode *node in _mainLayer.children) {
+    // Only allow for one bomb halo
+    if ([node.name isEqualToString:@"halo"]) {
+      haloCount++;
+    }
+  }
+  
+  if (haloCount == 4) {
+    // Create bomb powerup
+    halo.texture = [SKTexture textureWithImageNamed:@"HaloBomb"];
+    halo.userData = [[NSMutableDictionary alloc] init];
+    [halo.userData setValue:@YES forKey:kKXKeyBomb];
+  } else if (!_gameOver && arc4random_uniform(6) == 0) {
+    // Random point multiplier
     halo.texture = [SKTexture textureWithImageNamed:@"HaloX"];
     // userData - so cool!
     halo.userData = [[NSMutableDictionary alloc] init];
@@ -324,6 +339,9 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
       } else {
         self.pointValue *= self.pointValue;
       }
+    } else if ([[firstBody.node.userData valueForKey:kKXKeyBomb] boolValue]) {
+      firstBody.node.name = nil;
+      [self explodeAllHalos];
     }
     
     // Maybe we want to allow this?
@@ -336,6 +354,11 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     // Collision between halo and shield
     [self addShieldExplosion:firstBody.node.position];
     [self runAction:_explosionSound];
+    
+    if ([[firstBody.node.userData valueForKey:kKXKeyBomb] boolValue]) {
+      firstBody.node.name = nil;
+      [self explodeAllShields];
+    }
     
     // Clear the categoryBitMask so only one shield can be destroyed at a time
     firstBody.categoryBitMask = 0;
@@ -374,21 +397,33 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   }
 }
 
-- (void) gameOver
+- (void) explodeAllHalos
 {
   [_mainLayer enumerateChildNodesWithName:@"halo" usingBlock:^(SKNode *node, BOOL *stop) {
+    // allow the user to get points for hitting the bomb?
+    //if (!_gameOver) self.score += self.pointValue;
     [self addExplosion:node.position withName:@"HaloExplosion"];
     [node removeFromParent];
   }];
+}
+
+- (void) explodeAllShields
+{
+  [_mainLayer enumerateChildNodesWithName:@"shield" usingBlock:^(SKNode *node, BOOL *stop) {
+    [self addShieldExplosion:node.position];
+    [node removeFromParent];
+  }];
+}
+
+- (void) gameOver
+{
+  [self explodeAllHalos];
   
   [_mainLayer enumerateChildNodesWithName:@"ball" usingBlock:^(SKNode *node, BOOL *stop) {
     [node removeFromParent];
   }];
   
-  [_mainLayer enumerateChildNodesWithName:@"shield" usingBlock:^(SKNode *node, BOOL *stop) {
-    [self addShieldExplosion:node.position];
-    [node removeFromParent];
-  }];
+  [self explodeAllShields];
   
   // Update the score before we show it
   _menu.score = self.score;
