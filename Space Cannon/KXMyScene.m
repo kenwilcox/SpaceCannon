@@ -22,6 +22,7 @@
   SKLabelNode *_pointLabel;
   BOOL _didShoot;
   BOOL _gameOver;
+  BOOL _previousHaloIsBomb;
   
   // Sound Actions
   SKAction *_bounceSound;
@@ -291,7 +292,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   int haloCount = 0;
   for (SKNode *node in _mainLayer.children) {
     // Only allow for one bomb halo
-    if ([node.name isEqualToString:@"halo"]) {
+    if ([node.name isEqualToString:@"halo"] && !_previousHaloIsBomb) {
       haloCount++;
     }
   }
@@ -309,6 +310,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     [halo.userData setValue:@YES forKey:kKXKeyMultiplier];
   }
   
+  _previousHaloIsBomb = [[halo.userData valueForKey:kKXKeyBomb] boolValue];
   [_mainLayer addChild:halo];
 }
 
