@@ -19,6 +19,7 @@
   SKSpriteNode *_cannon;
   SKSpriteNode *_ammoDisplay;
   SKLabelNode *_scoreLabel;
+  SKLabelNode *_pointLabel;
   BOOL _didShoot;
   BOOL _gameOver;
   
@@ -49,6 +50,7 @@ static const uint32_t kKXLifeBarCategory = 0x1 << 4;
 
 static NSString * const kKXKeyTopScore = @"TopScore";
 static NSString * const kKXKeySpawnHalo = @"SpawnHalo";
+static NSString * const kKXKeyMultiplier = @"Multiplier";
 
 static inline CGVector radiansToVector(CGFloat radians)
 {
@@ -130,6 +132,13 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     _scoreLabel.fontSize = 15;
     [self addChild:_scoreLabel];
     
+    // Set up point multiplier display
+    _pointLabel = [SKLabelNode labelNodeWithFontNamed:@"DIN Alternate"];
+    _pointLabel.position = CGPointMake(15, 30);
+    _pointLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
+    _pointLabel.fontSize = 15;
+    [self addChild:_pointLabel];
+    
     _bounceSound = [SKAction playSoundFileNamed:@"Bounce.caf" waitForCompletion:NO];
     _deepExplosionSound = [SKAction playSoundFileNamed:@"DeepExplosion.caf" waitForCompletion:NO];
     _explosionSound = [SKAction playSoundFileNamed:@"Explosion.caf" waitForCompletion:NO];
@@ -144,8 +153,10 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     // Set initial values
     self.ammo = 5;
     self.score = 0;
+    self.pointValue = 1;
     _gameOver = YES;
     _scoreLabel.hidden = YES;
+    _pointLabel.hidden = YES;
     
     // Load up top score
     _userDefaults = [NSUserDefaults standardUserDefaults];
@@ -183,11 +194,15 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   [self actionForKey:kKXKeySpawnHalo].speed = 1.0;
   self.ammo = 5;
   self.score = 0;
+  self.pointValue = 1;
   _scoreLabel.hidden = NO;
+  _pointLabel.hidden = NO;
   _menu.hidden = YES;
   _gameOver = NO;
 
 }
+
+#pragma mark Custom Setters
 
 -(void)setAmmo:(int)ammo
 {
@@ -201,6 +216,12 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 {
   _score = score;
   _scoreLabel.text = [NSString stringWithFormat:@"Score: %d", score];
+}
+
+- (void)setPointValue:(int)pointValue
+{
+  _pointValue = pointValue;
+  _pointLabel.text = [NSString stringWithFormat:@"Points: %dx", pointValue];
 }
 
 - (void)shoot
@@ -265,9 +286,18 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   halo.physicsBody.collisionBitMask = kKXEdgeCategory;
   halo.physicsBody.contactTestBitMask = kKXBallCategory | kKXShieldCategory | kKXLifeBarCategory | kKXEdgeCategory;
   
+  // Random point multiplier
+  if (!_gameOver && arc4random_uniform(6) == 0) {
+    halo.texture = [SKTexture textureWithImageNamed:@"HaloX"];
+    // userData - so cool!
+    halo.userData = [[NSMutableDictionary alloc] init];
+    [halo.userData setValue:@YES forKey:kKXKeyMultiplier];
+  }
+  
   [_mainLayer addChild:halo];
 }
 
+#pragma mark Collision Tests
 - (void)didBeginContact:(SKPhysicsContact *)contact
 {
   // We need to figure out what hit what
@@ -284,9 +314,17 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   
   if (firstBody.categoryBitMask == kKXHaloCategory && secondBody.categoryBitMask == kKXBallCategory) {
     // Collision between halo and ball
-    self.score++;
+    self.score += self.pointValue;
     [self addExplosion:firstBody.node.position withName:@"NewHaloExplosion"];
     [self runAction:_explosionSound];
+    
+    if ([[firstBody.node.userData valueForKey:kKXKeyMultiplier] boolValue]) {
+      if (self.pointValue == 1) {
+        self.pointValue++;
+      } else {
+        self.pointValue *= self.pointValue;
+      }
+    }
     
     // Maybe we want to allow this?
     //firstBody.categoryBitMask = 0;
@@ -321,6 +359,8 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
       ball.bounces++;
       if (ball.bounces > MAX_BOUNCES) {
         [firstBody.node removeFromParent];
+        // reset point multiplier if we bounced too many times without a hit
+        self.pointValue = 1;
       }
     }
     [self addExplosion:contact.contactPoint withName:@"BounceExplosion"];
@@ -362,6 +402,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   _gameOver = YES;
   _menu.hidden = NO;
   _scoreLabel.hidden = YES;
+  _pointLabel.hidden = YES;
 }
 
 - (void)addExplosion:(CGPoint)position withName:(NSString*)name
@@ -448,6 +489,8 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     
     if (!CGRectContainsPoint(self.frame, node.position)) {
       [node removeFromParent];
+      // reset point multiplier if ball goes off screen
+      self.pointValue = 1;
     }
   }];
   
