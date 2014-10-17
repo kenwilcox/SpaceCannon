@@ -11,6 +11,7 @@
 @interface KXBall : SKSpriteNode
 
 @property (nonatomic) SKEmitterNode *trail;
+@property (nonatomic) int bounces;
 
 - (void)updateTrail;
 

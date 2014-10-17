@@ -10,6 +10,8 @@
 #import "KXMenu.h"
 #import "KXBall.h"
 
+#define MAX_BOUNCES 6
+
 @implementation KXMyScene
 {
   SKNode *_mainLayer;
@@ -314,6 +316,13 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   }
   
   if (firstBody.categoryBitMask == kKXBallCategory && secondBody.categoryBitMask == kKXEdgeCategory) {
+    if ([firstBody.node isKindOfClass:[KXBall class]]) {
+      KXBall *ball = (KXBall*)firstBody.node;
+      ball.bounces++;
+      if (ball.bounces > MAX_BOUNCES) {
+        [firstBody.node removeFromParent];
+      }
+    }
     [self addExplosion:contact.contactPoint withName:@"BounceExplosion"];
     [self runAction:_bounceSound];
   }
