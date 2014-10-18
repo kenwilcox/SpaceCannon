@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Kenneth Wilcox. All rights reserved.
 //
 
+#import <AVFoundation/AVFoundation.h>
 #import "KXMyScene.h"
 #import "KXMenu.h"
 #import "KXBall.h"
@@ -15,6 +16,8 @@
 
 @implementation KXMyScene
 {
+  AVAudioPlayer *_audioPlayer;
+  
   SKNode *_mainLayer;
   KXMenu *_menu;
   SKSpriteNode *_cannon;
@@ -208,6 +211,17 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     // Load up top score
     _userDefaults = [NSUserDefaults standardUserDefaults];
     _menu.topScore = [_userDefaults integerForKey:kKXKeyTopScore];
+    
+    // Load music
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"ObservingTheStar" withExtension:@"caf"];
+    NSError *error = nil;
+    _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+    if (_audioPlayer) {
+      _audioPlayer.numberOfLoops = -1;
+      _audioPlayer.volume = 0.8;
+      [_audioPlayer play];
+      _menu.musicPlaying = YES;
+    }
 
   }
   return self;
@@ -625,6 +639,15 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
       SKNode *node = [_menu nodeAtPoint:[touch locationInNode:_menu]];
       if ([node.name isEqualToString:@"Play"]) {
         [self newGame];
+      }
+      
+      if ([node.name isEqualToString:@"Music"]) {
+        _menu.musicPlaying = !_menu.musicPlaying;
+        if (_menu.musicPlaying) {
+          [_audioPlayer play];
+        } else {
+          [_audioPlayer stop];
+        }
       }
     } else if (!_gameOver) {
       if (self.gamePaused) {

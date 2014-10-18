@@ -16,6 +16,7 @@
   SKSpriteNode *_title;
   SKSpriteNode *_scoreBoard;
   SKSpriteNode *_playButton;
+  SKSpriteNode *_musicButton;
 }
 
 - (id)init
@@ -44,6 +45,11 @@
     _topScoreLabel.fontSize = 30;
     _topScoreLabel.position = CGPointMake(48, -20);
     [_scoreBoard addChild:_topScoreLabel];
+    
+    _musicButton = [SKSpriteNode spriteNodeWithImageNamed:@"MusicOnButton"];
+    _musicButton.name = @"Music";
+    _musicButton.position = CGPointMake(90, 0);
+    [self addChild:_musicButton];
     
     self.score = 0;
     self.topScore = 0;
@@ -93,6 +99,10 @@
   _playButton.alpha = 0.0;
   SKAction *animatePlayButton = [SKAction fadeInWithDuration:2.0];
   animatePlayButton.timingMode = SKActionTimingEaseIn;
+  
+  _musicButton.alpha = 0.0;
+  [_musicButton runAction:animatePlayButton];
+  
   [_playButton runAction:animatePlayButton completion:^{
     self.touchable = YES;
   }];
@@ -108,6 +118,16 @@
 {
   _topScore = topScore;
   _topScoreLabel.text = [[NSNumber numberWithInt:topScore] stringValue];
+}
+
+- (void)setMusicPlaying:(BOOL)musicPlaying
+{
+  _musicPlaying = musicPlaying;
+  if (_musicPlaying) {
+    _musicButton.texture = [SKTexture textureWithImageNamed:@"MusicOnButton"];
+  } else {
+    _musicButton.texture = [SKTexture textureWithImageNamed:@"MusicOffButton"];
+  }
 }
 
 @end
