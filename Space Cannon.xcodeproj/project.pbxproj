@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE049EE819F2001600576085 /* ShieldUp.caf in Resources */ = {isa = PBXBuildFile; fileRef = BE049EE719F2001600576085 /* ShieldUp.caf */; };
 		BE410C1519EB32B800F5E207 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE410C1419EB32B800F5E207 /* Foundation.framework */; };
 		BE410C1719EB32B800F5E207 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE410C1619EB32B800F5E207 /* CoreGraphics.framework */; };
 		BE410C1919EB32B800F5E207 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE410C1819EB32B800F5E207 /* UIKit.framework */; };
@@ -67,6 +68,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BE049EE719F2001600576085 /* ShieldUp.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ShieldUp.caf; sourceTree = "<group>"; };
 		BE410C1119EB32B800F5E207 /* Space Cannon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Space Cannon.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE410C1419EB32B800F5E207 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BE410C1619EB32B800F5E207 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -264,6 +266,7 @@
 				BE64EB6819EE37F40029AC9F /* DeepExplosion.caf */,
 				BE64EB6A19EE37F40029AC9F /* Explosion.caf */,
 				BE64EB6C19EE37F40029AC9F /* Laser.caf */,
+				BE049EE719F2001600576085 /* ShieldUp.caf */,
 				BE64EB6E19EE37F40029AC9F /* Zap.caf */,
 			);
 			path = Sounds;
@@ -371,6 +374,7 @@
 				BE410C5E19EB33DC00F5E207 /* Ammo1@2x.png in Resources */,
 				BE64EB7219EE37F40029AC9F /* DeepExplosion.caf in Resources */,
 				BE410C6319EB33DC00F5E207 /* Ball@2x.png in Resources */,
+				BE049EE819F2001600576085 /* ShieldUp.caf in Resources */,
 				BE410C6A19EB36FF00F5E207 /* README.md in Resources */,
 				BE410C3419EB32B800F5E207 /* Images.xcassets in Resources */,
 				BE410C6019EB33DC00F5E207 /* Ammo3@2x.png in Resources */,

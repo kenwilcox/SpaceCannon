@@ -30,6 +30,7 @@
   SKAction *_explosionSound;
   SKAction *_laserSound;
   SKAction *_zapSound;
+  SKAction *_shieldUpSound;
   
   NSUserDefaults *_userDefaults;
   NSMutableArray *_shieldPool;
@@ -117,6 +118,11 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
                                                [SKAction performSelector:@selector(spawnHalo) onTarget:self]]];
     [self runAction:[SKAction repeatActionForever:spawnHalo] withKey:kKXKeySpawnHalo];
     
+    // Create spawn shield power up action
+    SKAction *spawnShieldPowerUp = [SKAction sequence:@[[SKAction waitForDuration:15 withRange:4],
+                                                        [SKAction performSelector:@selector(spawnShieldPowerUp) onTarget:self]]];
+    [self runAction:[SKAction repeatActionForever:spawnShieldPowerUp]];
+    
     // Setup Ammo Display
     _ammoDisplay = [SKSpriteNode spriteNodeWithImageNamed:@"Ammo5"];
     _ammoDisplay.anchorPoint = CGPointMake(0.5, 0.0);
@@ -162,6 +168,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     _explosionSound = [SKAction playSoundFileNamed:@"Explosion.caf" waitForCompletion:NO];
     _laserSound = [SKAction playSoundFileNamed:@"Laser.caf" waitForCompletion:NO];
     _zapSound = [SKAction playSoundFileNamed:@"Zap.caf" waitForCompletion:NO];
+    _shieldUpSound = [SKAction playSoundFileNamed:@"ShieldUp.caf" waitForCompletion:NO];
     
     // Setup menu
     _menu = [[KXMenu alloc] init];
@@ -259,7 +266,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     ball.physicsBody.friction = 0.0;
     ball.physicsBody.categoryBitMask = kKXBallCategory;
     ball.physicsBody.collisionBitMask = kKXEdgeCategory;// | kKXHaloCategory;
-    ball.physicsBody.contactTestBitMask = kKXEdgeCategory;
+    ball.physicsBody.contactTestBitMask = kKXEdgeCategory | kKXShieldUpCategory;
     [self runAction:_laserSound];
     
     // Create trail
@@ -423,6 +430,18 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
       [self runAction:_zapSound];
     }
   }
+  
+  if (firstBody.categoryBitMask == kKXBallCategory && secondBody.categoryBitMask == kKXShieldUpCategory) {
+    // Hit a shield power up.
+    if (_shieldPool.count > 0 ) {
+      int randomIndex = arc4random_uniform((int)_shieldPool.count);
+      [_mainLayer addChild:[_shieldPool objectAtIndex:randomIndex]];
+      [_shieldPool removeObjectAtIndex:randomIndex];
+      [self runAction:_shieldUpSound];
+    }
+    [firstBody.node removeFromParent];
+    [secondBody.node removeFromParent];
+  }
 }
 
 - (void) explodeAllHalos
@@ -453,6 +472,11 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   }];
   
   [self explodeAllShields];
+  
+  // Clean up shield powerup
+  [_mainLayer enumerateChildNodesWithName:@"shieldUp" usingBlock:^(SKNode *node, BOOL *stop) {
+    [node removeFromParent];
+  }];
   
   // Update the score before we show it
   _menu.score = self.score;
@@ -558,6 +582,14 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     }
   }];
   
+  // Clean up shield powerup
+  [_mainLayer enumerateChildNodesWithName:@"shieldUp" usingBlock:^(SKNode *node, BOOL *stop) {
+    if (node.position.x + node.frame.size.width < 0) {
+      [node removeFromParent];
+    }
+  }];
+  
+  // Clean up halo's - game over screen/multiplier
   [_mainLayer enumerateChildNodesWithName:@"halo" usingBlock:^(SKNode *node, BOOL *stop) {
     // Test if we're at the bottom of the screen
     if (node.position.y + node.frame.size.height < 0) {
