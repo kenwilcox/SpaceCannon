@@ -44,11 +44,12 @@ static const CGFloat kKXHaloHighAngle = 340.0 * M_PI / 180.0;
 static const CGFloat kKXHaloSpeed = 100.0;
 
 // BitMasks
-static const uint32_t kKXHaloCategory    = 0x1 << 0;
-static const uint32_t kKXBallCategory    = 0x1 << 1;
-static const uint32_t kKXEdgeCategory    = 0x1 << 2;
-static const uint32_t kKXShieldCategory  = 0x1 << 3;
-static const uint32_t kKXLifeBarCategory = 0x1 << 4;
+static const uint32_t kKXHaloCategory     = 0x1 << 0;
+static const uint32_t kKXBallCategory     = 0x1 << 1;
+static const uint32_t kKXEdgeCategory     = 0x1 << 2;
+static const uint32_t kKXShieldCategory   = 0x1 << 3;
+static const uint32_t kKXLifeBarCategory  = 0x1 << 4;
+static const uint32_t kKXShieldUpCategory = 0x1 << 5;
 
 static NSString * const kKXKeyTopScore = @"TopScore";
 static NSString * const kKXKeySpawnHalo = @"SpawnHalo";
@@ -315,6 +316,8 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   } else if (!_gameOver && arc4random_uniform(6) == 0) {
     // Random point multiplier
     halo.texture = [SKTexture textureWithImageNamed:@"HaloX"];
+    // I don't want the power up to kill the shields if missed
+    halo.physicsBody.contactTestBitMask = kKXBallCategory | kKXEdgeCategory;
     // userData - so cool!
     halo.userData = [[NSMutableDictionary alloc] init];
     [halo.userData setValue:@YES forKey:kKXKeyMultiplier];
@@ -322,6 +325,23 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   
   _previousHaloIsBomb = [[halo.userData valueForKey:kKXKeyBomb] boolValue];
   [_mainLayer addChild:halo];
+}
+
+-(void)spawnShieldPowerUp
+{
+  if (_shieldPool.count > 0) {
+    SKSpriteNode *shieldUp = [SKSpriteNode spriteNodeWithImageNamed:@"BlocK"];
+    shieldUp.name = @"shieldUp";
+    shieldUp.position = CGPointMake(self.size.width + shieldUp.size.width, randomInRange(150, self.size.height - 100));
+    shieldUp.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(42, 9)];
+    shieldUp.physicsBody.categoryBitMask = kKXShieldUpCategory;
+    shieldUp.physicsBody.collisionBitMask = 0;
+    shieldUp.physicsBody.velocity = CGVectorMake(-100, randomInRange(-40, 40));
+    shieldUp.physicsBody.angularVelocity = M_PI;
+    shieldUp.physicsBody.linearDamping = 0.0;
+    shieldUp.physicsBody.angularDamping = 0.0;
+    [_mainLayer addChild:shieldUp];
+  }
 }
 
 #pragma mark Collision Tests
@@ -346,11 +366,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     [self runAction:_explosionSound];
     
     if ([[firstBody.node.userData valueForKey:kKXKeyMultiplier] boolValue]) {
-      if (self.pointValue == 1) {
-        self.pointValue++;
-      } else {
-        self.pointValue *= self.pointValue;
-      }
+      self.pointValue *= 2;
     } else if ([[firstBody.node.userData valueForKey:kKXKeyBomb] boolValue]) {
       firstBody.node.name = nil;
       [self explodeAllHalos];
