@@ -10,7 +10,8 @@
 #import "KXMenu.h"
 #import "KXBall.h"
 
-#define MAX_BOUNCES 6
+#define MAX_BOUNCES 5
+#define MULTISHOT_DELAY 0.1
 
 @implementation KXMyScene
 {
@@ -23,6 +24,7 @@
   BOOL _didShoot;
   BOOL _gameOver;
   BOOL _previousHaloIsBomb;
+  int _killCount;
   
   // Sound Actions
   SKAction *_bounceSound;
@@ -39,10 +41,10 @@
 // radians = degrees * (π / 180)
 // degrees = radians * (180 / π)
 
-static const CGFloat kKXShootSpeed = 1000.0f;
-static const CGFloat kKXHaloLowAngle = 200.0 * M_PI / 180.0;
+static const CGFloat kKXShootSpeed    = 1000.0f;
+static const CGFloat kKXHaloLowAngle  = 200.0 * M_PI / 180.0;
 static const CGFloat kKXHaloHighAngle = 340.0 * M_PI / 180.0;
-static const CGFloat kKXHaloSpeed = 100.0;
+static const CGFloat kKXHaloSpeed     = 100.0;
 
 // BitMasks
 static const uint32_t kKXHaloCategory     = 0x1 << 0;
@@ -51,6 +53,7 @@ static const uint32_t kKXEdgeCategory     = 0x1 << 2;
 static const uint32_t kKXShieldCategory   = 0x1 << 3;
 static const uint32_t kKXLifeBarCategory  = 0x1 << 4;
 static const uint32_t kKXShieldUpCategory = 0x1 << 5;
+static const uint32_t kKXMultiUpCategory  = 0x1 << 6;
 
 static NSString * const kKXKeyTopScore = @"TopScore";
 static NSString * const kKXKeySpawnHalo = @"SpawnHalo";
@@ -131,7 +134,9 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     
     SKAction *incrementAmmo = [SKAction sequence:@[[SKAction waitForDuration:1],
                                                    [SKAction runBlock:^{
-      self.ammo++;
+      if (!self.multiMode) {
+        self.ammo++;
+      }
     }]]];
     [self runAction:[SKAction repeatActionForever:incrementAmmo]];
     
@@ -179,6 +184,8 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     self.ammo = 5;
     self.score = 0;
     self.pointValue = 1;
+    self.multiMode = NO;
+    _killCount = 0;
     _gameOver = YES;
     _scoreLabel.hidden = YES;
     _pointLabel.hidden = YES;
@@ -244,39 +251,46 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   _pointLabel.text = [NSString stringWithFormat:@"Points: %dx", pointValue];
 }
 
+-(void)setMultiMode:(BOOL)multiMode
+{
+  _multiMode = multiMode;
+  if (multiMode) {
+    _cannon.texture = [SKTexture textureWithImageNamed:@"GreenCannon"];
+  } else {
+    _cannon.texture = [SKTexture textureWithImageNamed:@"Cannon"];
+  }
+}
+
 - (void)shoot
 {
-  if (self.ammo > 0) {
-    self.ammo--;
-    
-    // Create ball node
-    KXBall *ball = [KXBall spriteNodeWithImageNamed:@"Ball"];
-    // Give them a name, so we can find them later
-    ball.name = @"ball";
-    CGVector rotationVector = radiansToVector(_cannon.zRotation);
-    ball.position = CGPointMake(_cannon.position.x + (_cannon.size.width * 0.5 * rotationVector.dx),
-                                _cannon.position.y + (_cannon.size.width * 0.5 * rotationVector.dy));
-    [_mainLayer addChild:ball];
-    
-    ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:6.0];
-    ball.physicsBody.velocity = CGVectorMake(rotationVector.dx * kKXShootSpeed, rotationVector.dy * kKXShootSpeed);
-    
-    ball.physicsBody.restitution = 1.0;
-    ball.physicsBody.linearDamping = 0.0;
-    ball.physicsBody.friction = 0.0;
-    ball.physicsBody.categoryBitMask = kKXBallCategory;
-    ball.physicsBody.collisionBitMask = kKXEdgeCategory;// | kKXHaloCategory;
-    ball.physicsBody.contactTestBitMask = kKXEdgeCategory | kKXShieldUpCategory;
-    [self runAction:_laserSound];
-    
-    // Create trail
-    NSString *ballTrailPath = [[NSBundle mainBundle] pathForResource:@"BallTrail" ofType:@"sks"];
-    SKEmitterNode *ballTrail = [NSKeyedUnarchiver unarchiveObjectWithFile:ballTrailPath];
-    // Without the following line the ball looks more like a spark (kinda cool)
-    ballTrail.targetNode = _mainLayer;
-    [_mainLayer addChild:ballTrail];
-    ball.trail = ballTrail;
-  }
+  // Create ball node
+  KXBall *ball = [KXBall spriteNodeWithImageNamed:@"Ball"];
+  // Give them a name, so we can find them later
+  ball.name = @"ball";
+  CGVector rotationVector = radiansToVector(_cannon.zRotation);
+  ball.position = CGPointMake(_cannon.position.x + (_cannon.size.width * 0.5 * rotationVector.dx),
+                              _cannon.position.y + (_cannon.size.width * 0.5 * rotationVector.dy));
+  [_mainLayer addChild:ball];
+  
+  ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:6.0];
+  ball.physicsBody.velocity = CGVectorMake(rotationVector.dx * kKXShootSpeed, rotationVector.dy * kKXShootSpeed);
+  
+  ball.physicsBody.restitution = 1.0;
+  ball.physicsBody.linearDamping = 0.0;
+  ball.physicsBody.friction = 0.0;
+  ball.physicsBody.categoryBitMask = kKXBallCategory;
+  ball.physicsBody.collisionBitMask = kKXEdgeCategory;// | kKXHaloCategory;
+  ball.physicsBody.contactTestBitMask = kKXEdgeCategory | kKXShieldUpCategory | kKXMultiUpCategory;
+  [self runAction:_laserSound];
+  
+  // Create trail
+  NSString *ballTrailPath = [[NSBundle mainBundle] pathForResource:@"BallTrail" ofType:@"sks"];
+  SKEmitterNode *ballTrail = [NSKeyedUnarchiver unarchiveObjectWithFile:ballTrailPath];
+  // Without the following line the ball looks more like a spark (kinda cool)
+  ballTrail.targetNode = _mainLayer;
+  [_mainLayer addChild:ballTrail];
+  ball.trail = ballTrail;
+  [ball updateTrail];
 }
 
 -(void)spawnHalo
@@ -336,7 +350,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 
 -(void)spawnShieldPowerUp
 {
-  if (_shieldPool.count > 0) {
+  if (_shieldPool.count > 0 && !_gameOver) {
     SKSpriteNode *shieldUp = [SKSpriteNode spriteNodeWithImageNamed:@"BlocK"];
     shieldUp.name = @"shieldUp";
     shieldUp.position = CGPointMake(self.size.width + shieldUp.size.width, randomInRange(150, self.size.height - 100));
@@ -349,6 +363,21 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     shieldUp.physicsBody.angularDamping = 0.0;
     [_mainLayer addChild:shieldUp];
   }
+}
+
+-(void)spawnMultiShotPowerUp
+{
+  SKSpriteNode *multiUp = [SKSpriteNode spriteNodeWithImageNamed:@"MultiShotPowerUp"];
+  multiUp.name = @"multiUp";
+  multiUp.position = CGPointMake(-multiUp.size.width, randomInRange(150, self.size.height - 100));
+  multiUp.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:12.0];
+  multiUp.physicsBody.categoryBitMask = kKXMultiUpCategory;
+  multiUp.physicsBody.collisionBitMask = 0;
+  multiUp.physicsBody.velocity = CGVectorMake(100, randomInRange(-40, 40));
+  multiUp.physicsBody.angularVelocity = M_PI;
+  multiUp.physicsBody.linearDamping = 0.0;
+  multiUp.physicsBody.angularDamping = 0.0;
+  [_mainLayer addChild:multiUp];
 }
 
 #pragma mark Collision Tests
@@ -377,6 +406,11 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     } else if ([[firstBody.node.userData valueForKey:kKXKeyBomb] boolValue]) {
       firstBody.node.name = nil;
       [self explodeAllHalos];
+    }
+    
+    _killCount++;
+    if (_killCount % 10 == 0) {
+      [self spawnMultiShotPowerUp];
     }
     
     // Maybe we want to allow this?
@@ -417,8 +451,10 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
       ball.bounces++;
       if (ball.bounces > MAX_BOUNCES) {
         [firstBody.node removeFromParent];
-        // reset point multiplier if we bounced too many times without a hit
-        self.pointValue = 1;
+        // reset point multiplier if we bounced too many times without a hit unless we're in multi mode
+        if (!_multiMode) {
+          self.pointValue = 1;
+        }
       }
     }
     [self addExplosion:contact.contactPoint withName:@"BounceExplosion"];
@@ -439,6 +475,14 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
       [_shieldPool removeObjectAtIndex:randomIndex];
       [self runAction:_shieldUpSound];
     }
+    [firstBody.node removeFromParent];
+    [secondBody.node removeFromParent];
+  }
+  
+  if (firstBody.categoryBitMask == kKXBallCategory && secondBody.categoryBitMask == kKXMultiUpCategory) {
+    self.multiMode = YES;
+    [self runAction:_shieldUpSound];
+    self.ammo = 5;
     [firstBody.node removeFromParent];
     [secondBody.node removeFromParent];
   }
@@ -475,6 +519,11 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   
   // Clean up shield powerup
   [_mainLayer enumerateChildNodesWithName:@"shieldUp" usingBlock:^(SKNode *node, BOOL *stop) {
+    [node removeFromParent];
+  }];
+  
+  // Clean up any multishot powerup
+  [_mainLayer enumerateChildNodesWithName:@"multiUp" usingBlock:^(SKNode *node, BOOL *stop) {
     [node removeFromParent];
   }];
   
@@ -562,8 +611,21 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 
 - (void)didSimulatePhysics
 {
+  // Shoot
   if (_didShoot) {
-    [self shoot];
+    if (self.ammo > 0) {
+      self.ammo--;
+      [self shoot];
+      if (self.multiMode) {
+        for (int i = 1; i < 8; i++) {
+          [self performSelector:@selector(shoot) withObject:nil afterDelay:MULTISHOT_DELAY * i];
+        }
+        if (self.ammo == 0) {
+          self.multiMode = NO;
+          self.ammo = 5;
+        }
+      }
+    }
     _didShoot = NO;
   }
   
@@ -577,8 +639,10 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     
     if (!CGRectContainsPoint(self.frame, node.position)) {
       [node removeFromParent];
-      // reset point multiplier if ball goes off screen
-      self.pointValue = 1;
+      // reset point multiplier if ball goes off screen - but not if we're in multi mode
+      if (!_multiMode) {
+        self.pointValue = 1;
+      }
     }
   }];
   
@@ -593,6 +657,13 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   [_mainLayer enumerateChildNodesWithName:@"halo" usingBlock:^(SKNode *node, BOOL *stop) {
     // Test if we're at the bottom of the screen
     if (node.position.y + node.frame.size.height < 0) {
+      [node removeFromParent];
+    }
+  }];
+  
+  // Clean up the multi shot powerup
+  [_mainLayer enumerateChildNodesWithName:@"multiUp" usingBlock:^(SKNode *node, BOOL *stop) {
+    if (node.position.x - node.frame.size.width > self.size.width) {
       [node removeFromParent];
     }
   }];

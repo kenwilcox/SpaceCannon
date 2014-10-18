@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		BE049EE819F2001600576085 /* ShieldUp.caf in Resources */ = {isa = PBXBuildFile; fileRef = BE049EE719F2001600576085 /* ShieldUp.caf */; };
+		BE049EEB19F2026D00576085 /* GreenCannon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BE049EE919F2026D00576085 /* GreenCannon@2x.png */; };
+		BE049EEC19F2026D00576085 /* MultiShotPowerUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BE049EEA19F2026D00576085 /* MultiShotPowerUp@2x.png */; };
 		BE410C1519EB32B800F5E207 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE410C1419EB32B800F5E207 /* Foundation.framework */; };
 		BE410C1719EB32B800F5E207 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE410C1619EB32B800F5E207 /* CoreGraphics.framework */; };
 		BE410C1919EB32B800F5E207 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE410C1819EB32B800F5E207 /* UIKit.framework */; };
@@ -69,6 +71,8 @@
 
 /* Begin PBXFileReference section */
 		BE049EE719F2001600576085 /* ShieldUp.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ShieldUp.caf; sourceTree = "<group>"; };
+		BE049EE919F2026D00576085 /* GreenCannon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GreenCannon@2x.png"; sourceTree = "<group>"; };
+		BE049EEA19F2026D00576085 /* MultiShotPowerUp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MultiShotPowerUp@2x.png"; sourceTree = "<group>"; };
 		BE410C1119EB32B800F5E207 /* Space Cannon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Space Cannon.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE410C1419EB32B800F5E207 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BE410C1619EB32B800F5E207 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -248,9 +252,11 @@
 				BE410C5819EB33DC00F5E207 /* Block@2x.png */,
 				BE410C5919EB33DC00F5E207 /* BlueBar@2x.png */,
 				BE410C5A19EB33DC00F5E207 /* Cannon@2x.png */,
+				BE049EE919F2026D00576085 /* GreenCannon@2x.png */,
 				BE410C5B19EB33DC00F5E207 /* Halo@2x.png */,
 				BE64EB8B19F0FA0F0029AC9F /* HaloBomb@2x.png */,
 				BE64EB8919F0F1FC0029AC9F /* HaloX@2x.png */,
+				BE049EEA19F2026D00576085 /* MultiShotPowerUp@2x.png */,
 				BE64EB7A19EE3FC60029AC9F /* PlayButton@2x.png */,
 				BE64EB7B19EE3FC60029AC9F /* ScoreBoard@2x.png */,
 				BE410C5C19EB33DC00F5E207 /* Starfield@2x.png */,
@@ -367,6 +373,7 @@
 				BE64EB7E19EE3FC60029AC9F /* ScoreBoard@2x.png in Resources */,
 				BE410C6519EB33DC00F5E207 /* BlueBar@2x.png in Resources */,
 				BE64EB6419EE25610029AC9F /* BounceExplosion.sks in Resources */,
+				BE049EEB19F2026D00576085 /* GreenCannon@2x.png in Resources */,
 				BE64EB8A19F0F1FC0029AC9F /* HaloX@2x.png in Resources */,
 				BE410C2119EB32B800F5E207 /* InfoPlist.strings in Resources */,
 				BE410C6219EB33DC00F5E207 /* Ammo5@2x.png in Resources */,
@@ -390,6 +397,7 @@
 				BE410C6419EB33DC00F5E207 /* Block@2x.png in Resources */,
 				BE410C6819EB33DC00F5E207 /* Starfield@2x.png in Resources */,
 				BE64EB7819EE37F40029AC9F /* Zap.caf in Resources */,
+				BE049EEC19F2026D00576085 /* MultiShotPowerUp@2x.png in Resources */,
 				BE64EB7019EE37F40029AC9F /* Bounce.caf in Resources */,
 				BEA5B43019EE0C1B00D9E84E /* LifeBarExplosion.sks in Resources */,
 				BE410C6619EB33DC00F5E207 /* Cannon@2x.png in Resources */,
