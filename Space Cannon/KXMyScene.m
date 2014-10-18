@@ -413,8 +413,8 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
       [self spawnMultiShotPowerUp];
     }
     
-    // Maybe we want to allow this?
-    //firstBody.categoryBitMask = 0;
+    // Only allow one halo to be hit per ball
+    firstBody.categoryBitMask = 0;
     [firstBody.node removeFromParent];
     [secondBody.node removeFromParent];
   }
