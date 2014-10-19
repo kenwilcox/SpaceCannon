@@ -31,7 +31,7 @@
     _scoreBoard.position = CGPointMake(0, 70);
     [self addChild:_scoreBoard];
     
-    _playButton = [SKSpriteNode spriteNodeWithImageNamed:@"PLayButton"];
+    _playButton = [SKSpriteNode spriteNodeWithImageNamed:@"PlayButton"];
     _playButton.name = @"Play";
     _playButton.position = CGPointMake(0, 0);
     [self addChild:_playButton];
@@ -99,13 +99,12 @@
   _playButton.alpha = 0.0;
   SKAction *animatePlayButton = [SKAction fadeInWithDuration:2.0];
   animatePlayButton.timingMode = SKActionTimingEaseIn;
-  
-  _musicButton.alpha = 0.0;
-  [_musicButton runAction:animatePlayButton];
-  
   [_playButton runAction:animatePlayButton completion:^{
     self.touchable = YES;
   }];
+  
+  _musicButton.alpha = 0.0;
+  [_musicButton runAction:animatePlayButton];
 }
 
 - (void)setScore:(int)score
