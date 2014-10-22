@@ -210,7 +210,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     
     // Load up top score
     _userDefaults = [NSUserDefaults standardUserDefaults];
-    _menu.topScore = [_userDefaults integerForKey:kKXKeyTopScore];
+    _menu.topScore = (int)[_userDefaults integerForKey:kKXKeyTopScore];
     
     // Load music
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"ObservingTheStar" withExtension:@"caf"];
@@ -298,6 +298,22 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
     _pauseButton.hidden = gamePaused;
     _resumeButton.hidden = !gamePaused;
     self.paused = gamePaused;
+  }
+  
+}
+
+- (void)setAppExiting:(BOOL)appExiting
+{
+  if (appExiting){
+    self.gamePaused = YES;
+    [_audioPlayer stop];
+  } else {
+    self.gamePaused = NO;
+    if (_menu.musicPlaying) {
+      [_audioPlayer play];
+    } else {
+      [_audioPlayer stop];
+    }
   }
 }
 
