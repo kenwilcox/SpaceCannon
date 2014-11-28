@@ -307,12 +307,15 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   if (appExiting){
     self.gamePaused = YES;
     [_audioPlayer stop];
+    [[AVAudioSession sharedInstance] setActive:NO error:nil];
   } else {
     self.gamePaused = NO;
     if (_menu.musicPlaying) {
       [_audioPlayer play];
+      [[AVAudioSession sharedInstance] setActive:YES error:nil];
     } else {
       [_audioPlayer stop];
+      [[AVAudioSession sharedInstance] setActive:NO error:nil];
     }
   }
 }
