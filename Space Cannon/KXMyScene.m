@@ -685,14 +685,14 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 
 /* SpriteKit Event loop: update, didEvaluateActions, didSimulatePhysics */
 
-- (void)update:(CFTimeInterval)currentTime {
-  /* Called before each frame is rendered */
-}
-
-- (void)didEvaluateActions
-{
-  
-}
+//- (void)update:(CFTimeInterval)currentTime {
+//  /* Called before each frame is rendered */
+//}
+//
+//- (void)didEvaluateActions
+//{
+//  
+//}
 
 - (void)didSimulatePhysics
 {
