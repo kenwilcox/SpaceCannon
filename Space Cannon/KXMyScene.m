@@ -410,7 +410,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 -(void)spawnShieldPowerUp
 {
   if (_shieldPool.count > 0 && !_gameOver) {
-    SKSpriteNode *shieldUp = [SKSpriteNode spriteNodeWithImageNamed:@"BlocK"];
+    SKSpriteNode *shieldUp = [SKSpriteNode spriteNodeWithImageNamed:@"Block"];
     shieldUp.name = @"shieldUp";
     shieldUp.position = CGPointMake(self.size.width + shieldUp.size.width, randomInRange(150, self.size.height - 100));
     shieldUp.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(42, 9)];
