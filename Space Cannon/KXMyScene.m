@@ -251,6 +251,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   self.ammo = 5;
   self.score = 0;
   self.pointValue = 1;
+  self.multiMode = NO;
   _scoreLabel.hidden = NO;
   _pointLabel.hidden = NO;
   _pauseButton.hidden = NO;
