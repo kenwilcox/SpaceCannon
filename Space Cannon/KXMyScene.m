@@ -81,6 +81,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 }
 
 - (id)initWithSize:(CGSize)size {
+  NSLog(@"initWithSize");
   if (self = [super initWithSize:size]) {
     /* Setup your scene here */
     
@@ -229,6 +230,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 
 - (void)newGame
 {
+  //NSLog(@"New Game");
   [_mainLayer removeAllChildren];
   
   // Add all shields from pool to scene
@@ -294,30 +296,37 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 
 - (void)setGamePaused:(BOOL)gamePaused
 {
+  //NSLog(@"setGamePaused %hhd", gamePaused);
+  
+  _gamePaused = gamePaused;
+  
   if (!_gameOver) {
-    _gamePaused = gamePaused;
     _pauseButton.hidden = gamePaused;
     _resumeButton.hidden = !gamePaused;
+    NSLog(@"setting self.paused to %hhd", gamePaused);
     self.paused = gamePaused;
+    
+    if (gamePaused) {
+      [_audioPlayer stop];
+      self.speed = 0;
+    } else {
+      if (_menu.musicPlaying) {
+        [_audioPlayer play];
+        self.speed = 1;
+      }
+    }
   }
   
 }
 
 - (void)setAppExiting:(BOOL)appExiting
 {
+  NSLog(@"setAppExiting %hhd", appExiting);
   if (appExiting){
     self.gamePaused = YES;
-    [_audioPlayer stop];
-    [[AVAudioSession sharedInstance] setActive:NO error:nil];
+    //self.scene.view.paused = YES;
   } else {
-    self.gamePaused = NO;
-    if (_menu.musicPlaying) {
-      [_audioPlayer play];
-      [[AVAudioSession sharedInstance] setActive:YES error:nil];
-    } else {
-      [_audioPlayer stop];
-      [[AVAudioSession sharedInstance] setActive:NO error:nil];
-    }
+    //self.gamePaused = YES;
   }
 }
 
@@ -355,6 +364,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 
 -(void)spawnHalo
 {
+  //NSLog(@"spawnHalo - Game Over: %hhd - Game Paused: %hhd", _gameOver, _gamePaused);
   // Increase spawn speed if not on menu
   if (!_gameOver) {
     SKAction *spawnHaloAction = [self actionForKey:kKXKeySpawnHalo];
@@ -754,4 +764,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
   }];
 }
 
+//- (void)update:(NSTimeInterval)currentTime {
+//  if (_gamePaused) NSLog(@"update (paused) - Game Over: %hhd - Game Paused: %hhd", _gameOver, _gamePaused);
+//}
 @end
