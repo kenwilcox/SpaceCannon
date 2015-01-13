@@ -48,8 +48,8 @@
   // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
   SKView *view = (SKView*)self.window.rootViewController.view;
   KXMyScene *scene = ((KXMyScene*)view.scene);
-  NSLog(@"application: GamePaused %hhd - %hhd", scene.gamePaused, scene.paused);
-//  ((KXMyScene*)view.scene).appExiting = NO;
+  NSLog(@"application: GamePaused %i - %i", scene.gamePaused, scene.paused);
+  ((KXMyScene*)view.scene).appExiting = YES;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

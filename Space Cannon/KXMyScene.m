@@ -296,15 +296,21 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 
 - (void)setGamePaused:(BOOL)gamePaused
 {
-  //NSLog(@"setGamePaused %hhd", gamePaused);
+  NSLog(@"setGamePaused %i", gamePaused);
   
   _gamePaused = gamePaused;
+  self.paused = gamePaused;
+  self.scene.paused = gamePaused;
+  
+  [_mainLayer enumerateChildNodesWithName:@"halo" usingBlock:^(SKNode *node, BOOL *stop) {
+    NSLog(@"%@", node.name);
+    node.paused = gamePaused;
+  }];
   
   if (!_gameOver) {
     _pauseButton.hidden = gamePaused;
     _resumeButton.hidden = !gamePaused;
-    NSLog(@"setting self.paused to %hhd", gamePaused);
-    self.paused = gamePaused;
+    NSLog(@"setting self.paused to %i", gamePaused);
     
     if (gamePaused) {
       [_audioPlayer stop];
@@ -321,7 +327,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 
 - (void)setAppExiting:(BOOL)appExiting
 {
-  NSLog(@"setAppExiting %hhd", appExiting);
+  NSLog(@"setAppExiting %i", appExiting);
   if (appExiting){
     self.gamePaused = YES;
     //self.scene.view.paused = YES;
@@ -706,6 +712,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
 
 - (void)didSimulatePhysics
 {
+  if (!self.gamePaused) {
   // Shoot
   if (_didShoot) {
     if (self.ammo > 0) {
@@ -762,6 +769,7 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
       [node removeFromParent];
     }
   }];
+  }
 }
 
 //- (void)update:(NSTimeInterval)currentTime {
