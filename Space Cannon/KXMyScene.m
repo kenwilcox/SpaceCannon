@@ -222,11 +222,30 @@ static inline CGFloat randomInRange(CGFloat low, CGFloat high)
       _audioPlayer.volume = 0.8;
       [_audioPlayer play];
       _menu.musicPlaying = YES;
+      
+      // Trying an observer
+      //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(realUnpause) name:UIApplicationDidBecomeActiveNotification object:nil];
+      
+      
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(realPause) name:UIApplicationDidEnterBackgroundNotification object:nil];
+      
     }
 
   }
   return self;
 }
+
+- (void)realPause
+{
+  self.scene.paused = true;
+  self.gamePaused = true;
+}
+
+//- (void)realUnpause
+//{
+//  self.view.paused = false;
+//  self.gamePaused = false;
+//}
 
 - (void)newGame
 {
